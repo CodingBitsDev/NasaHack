@@ -11,34 +11,38 @@ export default async function renderTrash(scene){
     let data = await result.json()
     console.log("###", data)
 
-    let renderMax = 1000
+    let renderMax = 500
     let step = 1
 
     for (let index = 0; index < data.length; index++) {
         let trash = data[index]
         if (index > step * renderMax) {
-            await new Promise((resolve) => {
-            setTimeout(() => resolve(), 5000)
+            await new Promise(async (resolve) => {
+                while (!window.loadNext){
+                    await new Promise(resolve => setTimeout(() => resolve(), 1000))
+                }
+                window.loadNext = false
+                step++
+                resolve()
             });
-            step++
         }
-        let newTrash = new Trash(
-            scene,
-            trash["TLE_LINE1"],
-            trash["TLE_LINE2"],
-            trash["TLE_LINE0"],
-            trash,
-        );
-        trashList.push(newTrash)
-        this.setTimeout( () => {
-
-        } , 1000)
+        setTimeout( () => {
+            let newTrash = new Trash(
+                scene,
+                trash["TLE_LINE1"],
+                trash["TLE_LINE2"],
+                trash["TLE_LINE0"],
+                trash,
+            );
+            trashList.push(newTrash)
+        } , 0)
         
     }
 
-    let interval = 50;
+    let interval = Math.ceil( this.trashList.length / 10 );
     let currentStep = 0;
     let update = () => {
+        return;
         if (trashList.length > currentStep){
             let subList = trashList.slice(currentStep, currentStep + interval)
             currentStep = currentStep + interval;
