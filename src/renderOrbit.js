@@ -9,9 +9,9 @@ export function updateOrbit(orbit) {
     for (let i = 0; i < res; i++){
         let pos = satellite.sgp4(orbit.satrec, i / 10 + delta).position;
         let point = orbit.options.points[i];
-        point.x = pos.x / 70;
-        point.y = pos.y / 70;
-        point.z = pos.z / 70;
+        point.x = pos.x / 100;
+        point.y = pos.y / 100;
+        point.z = pos.z / 100;
     }
 
     orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", orbit.options);
@@ -19,8 +19,8 @@ export function updateOrbit(orbit) {
 
 export default function createOrbit(scene, tle, color){
     // Sample TLE
-    var tleLine1 = '1 25544U 98067A   19156.50900463  .00003075  00000-0  59442-4 0  9992',
-    tleLine2 = '2 25544  51.6433  59.2583 0008217  16.4489 347.6017 15.51174618173442';    
+    var tleLine1 = '1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927',
+    tleLine2 = '2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537';  
 
     // Initialize a satellite record
     var satrec = satellite.twoline2satrec(tleLine1, tleLine2);
