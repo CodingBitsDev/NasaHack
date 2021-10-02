@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './scss/App.scss';
 import BabylonCanvas from './BabylonCanvas';
 import TimeSettingsContainer from './reactComponents/TimeSettingsContainer';
@@ -7,10 +7,12 @@ import('@babylonjs/inspector')
 
 
 function App() {
+  let [ scene, setScene ] = useState(null)
+
   return (
     <div className="App">
-      <BabylonCanvas/>
-      <TimeSettingsContainer />
+      <BabylonCanvas onSceneReady={setScene}/>
+      <TimeSettingsContainer scene={scene} />
     </div>
   );
 }
