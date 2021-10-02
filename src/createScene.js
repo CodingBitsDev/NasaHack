@@ -15,5 +15,22 @@ export function createScene (engine, canvas) {
 
 	const earth = createEarth(scene);
 
+  let path = [];
+  const res = 100;
+  for (let i = 0; i < res + 1; i++){
+    path.push(new BABYLON.Vector3(
+      Math.sin(i * Math.PI * 2 / res) * 75,
+      0,
+      Math.cos(i * Math.PI * 2 / res) * 75
+    ))
+  }
+
+  const options = {
+    points: path, //vec3 array,
+    updatable: true
+  }
+
+  let lines = BABYLON.MeshBuilder.CreateLines("lines", options, scene);
+
   return scene;
 };
