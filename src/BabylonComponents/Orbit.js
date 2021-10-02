@@ -10,7 +10,6 @@ export default class Orbit{
     this.tleLine1 = tle1;
     this.tleLine2 = tle2;
 
-		this._enabled = false;
 
     // Initialize a satellite record
     let satrec = satellite.twoline2satrec(this.tleLine1, this.tleLine2);
@@ -18,7 +17,7 @@ export default class Orbit{
     let points = [];
     let colors = [];
 
-    const res = 25;
+    const res = 50;
     for (let i = 0; i < res; i++){
         points.push(new BABYLON.Vector3(0, 0, 0));
         colors.push(new BABYLON.Color4(this.color.r, this.color.g, this.color.b, (res - i) / res * this.color.a));
@@ -33,43 +32,38 @@ export default class Orbit{
     }
   
     let lines = BABYLON.MeshBuilder.CreateLines("orbit_" + this.uid, options, this.scene);
-		lines.setEnabled(this._enabled)
 
     options.instance = lines;
 
     this.orbit = {
         satrec,
         options,
-				instance: lines,
+        instance: lines,
     };
+
+		this.setEnabled(false)
 	}
 
 	setEnabled(enabled){
-		this._enabled = enabled
-		this.orbit.options.instance.setEnabled(this._enabled)
+		this.orbit.options.instance.setEnabled(enabled)
 	}
 
 
 	update() {
-    let res = this.orbit.options.points.length;
+    let length = this.orbit.options.points.length;
     var time = new Date();
     var gmst = satellite.gstime(time);
     let test = satellite.eciToGeodetic(satellite.propagate(this.orbit.satrec, time).position);
-    for (let i = 0; i < res; i++){
-        
+    for (let i = 0; i < (this._enabled ? length : 1); i++){
         let pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
         let point = this.orbit.options.points[i];
         point.x = pos.x / 100;
         point.y = pos.z / 100;
         point.z = pos.y / 100;
-        time.setSeconds(time.getSeconds() - 100);
+        time.setSeconds(time.getSeconds() - 60);
     }
 
     this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options);
-		if (this._enabled){
-			console.log("###", this._enabled)
-		}
-		this.orbit.options.instance.setEnabled(this._enabled)
 		this.currentPosition = this.orbit.options.points[0]
 	}
 }

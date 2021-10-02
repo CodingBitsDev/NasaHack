@@ -3,9 +3,8 @@ import * as GUI from '@babylonjs/gui';
 import * as satellite from 'satellite.js';
 import Orbit from './BabylonComponents/Orbit';
 
-export function updateOrbit(orbit) {
+export function updateOrbit(orbit, time) {
     let res = orbit.options.points.length;
-    var time = new Date();
     var gmst = satellite.gstime(time);
     for (let i = 0; i < res; i++){
         
@@ -29,7 +28,7 @@ export default function createOrbit(scene, tle, color){
     let orbit = new Orbit(tleLine1, tleLine2, null, scene)
 
     let interval =  setInterval(() => {
-       orbit.updateOrbit(); 
+       orbit.updateOrbit(new Date()); 
     }, 100);
     return orbit
 }

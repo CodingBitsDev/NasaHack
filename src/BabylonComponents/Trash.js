@@ -10,19 +10,31 @@ export default class Trash{
 		this.uid = obvervationDate;
 		this.discoveryDate = discoveryDate;
 
-		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(1,1,1, 0.3),scene)
+		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(1,1,1,1),scene)
 		this.orbit.update();
 		this.trashSphere = scene.templateSphere.createInstance("instance" + uid);
 		this.trashSphere.position = this.orbit.currentPosition;
+		this.trashSphere.selected = false;
+
+    this.trashSphere.actionManager = scene.mainActionManager;
+		this.trashSphere.setOrbitEnabled = this.setOrbitEnabled.bind(this);
+		this.trashSphere.setSelected = this.setSelected.bind(this);
+
+	}
+
+	setSelected(selected){
+		this.trashSphere.selected = selected
+		if (selected) this.orbit.setEnabled(true);
 	}
 
 	setOrbitEnabled(enabled){
-		this.orbit.setEnabled(enabled);
-		console.log("###", this.orbit)
+		if (!this.trashSphere.selected){
+			this.orbit.setEnabled(enabled);
+		}
 	}
 
-	update(){
-		this.orbit.update()
+	update(time){
+		this.orbit.update(time)
 		this.trashSphere.position = this.orbit.currentPosition;
 	}
 }
