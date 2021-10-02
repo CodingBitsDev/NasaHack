@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <BabylonCanvas onSceneReady={setScene}/>
-      <TimeSettingsContainer scene={scene} />
+      {scene && <TimeSettingsContainer scene={scene} />}
     </div>
   );
 }

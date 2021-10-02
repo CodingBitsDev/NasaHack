@@ -14,6 +14,7 @@ export function createScene (engine, canvas) {
 	scene.autoUpdateScene = true;
 	scene.globalTime = new Date();
 	scene.update = updateScene
+	scene.canvas = canvas
 
 	setInterval(() => {
 		scene.update();
