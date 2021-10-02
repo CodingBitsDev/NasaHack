@@ -20,7 +20,7 @@ export default function createEarth(scene){
 	// sphere.material.wireframe = true;
 
 	  var img = new Image();
-	img.src = '/textures/mercator.jpg';
+	img.src = '/textures/earth.jpg';
 	img.onload = function() {
       //Add image to dynamic texture
 			context.drawImage(this, 0, 0);
