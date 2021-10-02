@@ -7,8 +7,9 @@ export default function createEarth(scene){
 	sphere.rotation.y = -Math.PI/2;
 
 	    //Create dynamic texture
-	const textureResolution = 2048;
-	const texture = new BABYLON.DynamicTexture("earthTexture", textureResolution, scene);   
+	const width = 2048;
+	const height = 1024;
+	const texture = new BABYLON.DynamicTexture("earthTexture", { width, height }, scene);   
 	const context = texture.getContext();
 
 	const earthMat = new BABYLON.StandardMaterial("earthMat", scene);    				
@@ -20,7 +21,7 @@ export default function createEarth(scene){
 	// sphere.material.wireframe = true;
 
 	  var img = new Image();
-	img.src = '/textures/mercator.jpg';
+	img.src = '/textures/earth.jpg';
 	img.onload = function() {
       //Add image to dynamic texture
 			context.drawImage(this, 0, 0);
