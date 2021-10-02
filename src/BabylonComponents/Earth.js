@@ -30,11 +30,12 @@ export default class Earth{
 		}	
 
 		//Clouds
-/* 		var mat0 = new BABYLON.StandardMaterial("mat0", scene);
+ 		/*var mat0 = new BABYLON.StandardMaterial("mat0", scene);
 		mat0.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.3);
 		mat0.opacityTexture = new BABYLON.Texture("/textures/cloud_combined.png", scene);
 	
 		var sphere1 = BABYLON.MeshBuilder.CreateSphere("sphere1", {diameter: 128.42, segments: 32}, scene);
-		sphere1.material = mat0; */
+		sphere1.material = mat0; 
+		*/
 	}
 }
