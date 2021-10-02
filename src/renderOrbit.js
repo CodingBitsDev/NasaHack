@@ -2,9 +2,10 @@ import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as GUI from '@babylonjs/gui';
 import * as satellite from 'satellite.js';
 
+let renderInterval = null;
+
 export function updateOrbit(orbit) {
     let delta = Date.now() / (60 * 1000) - 27219648;
-    console.log(delta);
     let res = orbit.options.points.length;
     for (let i = 0; i < res; i++){
         let pos = satellite.sgp4(orbit.satrec, i / 10 + delta).position;
@@ -49,7 +50,13 @@ export default function createOrbit(scene, tle, color){
         options,
     };
 
-    updateOrbit(orbit);
+    renderInterval = setInterval(() => {
+        updateOrbit(orbit)
+    }, 100) 
     
     return orbit;
+}
+
+export function dispose(){
+    if (renderInterval) clearInterval(renderInterval)
 }
