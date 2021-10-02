@@ -7,8 +7,9 @@ export default function createEarth(scene){
 	sphere.rotation.y = -Math.PI/2;
 
 	    //Create dynamic texture
-	const textureResolution = 2048;
-	const texture = new BABYLON.DynamicTexture("earthTexture", textureResolution, scene);   
+	const width = 2048;
+	const height = 1024;
+	const texture = new BABYLON.DynamicTexture("earthTexture", { width, height }, scene);   
 	const context = texture.getContext();
 
 	const earthMat = new BABYLON.StandardMaterial("earthMat", scene);    				
