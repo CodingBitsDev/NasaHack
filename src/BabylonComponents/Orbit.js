@@ -3,8 +3,9 @@ import * as GUI from '@babylonjs/gui';
 import * as satellite from 'satellite.js';
 
 export default class Orbit{
-	constructor(tle1, tle2, color , scene ){
-		this.color = color || new BABYLON.Color3(1,1,1)
+	constructor(uid, tle1, tle2, color , scene ){
+		this.uid = uid;
+		this.color = color || new BABYLON.Color4(1,1,1, 0.5)
 		this.scene = scene;
     this.tleLine1 = tle1;
     this.tleLine2 = tle2;
@@ -18,8 +19,10 @@ export default class Orbit{
     const res = 100;
     for (let i = 0; i < res; i++){
         points.push(new BABYLON.Vector3(0, 0, 0));
-        colors.push(new BABYLON.Color4(this.color.r, this.color.g, this.color.b, (res - i) / res));
+        colors.push(new BABYLON.Color4(this.color.r, this.color.g, this.color.b, (res - i) / res * this.color.a));
     }
+
+		this.startPosition = points[0];
   
     const options = {
         points, 
@@ -27,7 +30,7 @@ export default class Orbit{
         updatable: true
     }
   
-    let lines = BABYLON.MeshBuilder.CreateLines("lines", options, this.scene);
+    let lines = BABYLON.MeshBuilder.CreateLines("orbit_" + this.uid, options, this.scene);
 
     options.instance = lines;
 
@@ -38,7 +41,7 @@ export default class Orbit{
 	}
 
 
-	updateOrbit() {
+	update() {
     let res = this.orbit.options.points.length;
     var time = new Date();
     var gmst = satellite.gstime(time);

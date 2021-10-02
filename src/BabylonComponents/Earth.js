@@ -15,7 +15,6 @@ export default class Earth{
 
 		const earthMat = new BABYLON.StandardMaterial("earthMat", scene);    				
 		earthMat.diffuseTexture = texture;
-		earthMat.material = earthMat;
 		earthMat.diffuseColor = BABYLON.Color3.Gray();
 
 		this.sphere.material = earthMat;

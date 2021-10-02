@@ -3,7 +3,7 @@ import * as GUI from '@babylonjs/gui';
 
 import Earth from './BabylonComponents/Earth';
 
-import renderOrbit, { updateOrbit } from './renderOrbit';
+import renderTrash from './renderTrash';
 
 var orbit;
 
@@ -33,15 +33,32 @@ export function createScene (engine, canvas) {
 	light.intensity = 0.7;
 	light.diffuse = new BABYLON.Vector3(3,3,3)
 
+	createTemplateSphere(scene)
+
 	const earth = new Earth(scene);
 
 
-  orbit = renderOrbit(scene);
 
 
+  let trash = renderTrash(scene);
   return scene;
 };
 
 export function updateScene() {
-  updateOrbit(orbit);
+}
+
+function createTemplateSphere(scene){
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 32}, scene);
+		// sphere.position = new BABYLON.Vector3(70,0,0)
+		sphere.rotation.x = Math.PI;
+		sphere.rotation.y = -Math.PI/2;
+
+				//Create dynamic texture
+		const earthMat = new BABYLON.StandardMaterial("earthMat", scene);    				
+		earthMat.diffuseColor = BABYLON.Color3.Gray();
+
+		sphere.material = earthMat;
+
+		sphere.isVisible = false;
+		scene.templateSphere = sphere
 }
