@@ -52,7 +52,7 @@ export default class Orbit{
 
 	update() {
     let length = this.orbit.options.points.length;
-    var time = new Date();
+    var time = new Date(this.scene.globalTime); 
     var gmst = satellite.gstime(time);
     let test = satellite.eciToGeodetic(satellite.propagate(this.orbit.satrec, time).position);
     for (let i = 0; i < (this.orbit.options.instance.isEnabled() ? length : 1); i++){
