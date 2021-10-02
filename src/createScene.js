@@ -67,10 +67,10 @@ function createTemplateSphere(scene){
 		sphere.rotation.y = -Math.PI/2;
 
 				//Create dynamic texture
-		const earthMat = new BABYLON.StandardMaterial("earthMat", scene);    				
-		earthMat.diffuseColor = BABYLON.Color3.Gray();
+		const mat = new BABYLON.StandardMaterial("earthMat", scene);    				
+		mat.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
 
-		sphere.material = earthMat;
+		sphere.material = mat;
 
 		sphere.isVisible = false;
 		scene.templateSphere = sphere
