@@ -10,7 +10,6 @@ export default class Orbit{
     this.tleLine1 = tle1;
     this.tleLine2 = tle2;
 
-		this._enabled = false;
 
     // Initialize a satellite record
     let satrec = satellite.twoline2satrec(this.tleLine1, this.tleLine2);
@@ -33,7 +32,6 @@ export default class Orbit{
     }
   
     let lines = BABYLON.MeshBuilder.CreateLines("orbit_" + this.uid, options, this.scene);
-		lines.setEnabled(this._enabled)
 
     options.instance = lines;
 
@@ -42,11 +40,12 @@ export default class Orbit{
         options,
         instance: lines,
     };
+
+		this.setEnabled(false)
 	}
 
 	setEnabled(enabled){
-		this._enabled = enabled
-		this.orbit.options.instance.setEnabled(this._enabled)
+		this.orbit.options.instance.setEnabled(enabled)
 	}
 
 
@@ -65,10 +64,6 @@ export default class Orbit{
     }
 
     this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options);
-		if (this._enabled){
-			console.log("###", this._enabled)
-		}
-		this.orbit.options.instance.setEnabled(this._enabled)
 		this.currentPosition = this.orbit.options.points[0]
 	}
 }

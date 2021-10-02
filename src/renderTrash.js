@@ -13,9 +13,6 @@ export default function renderTrash(scene){
             trash["TLE_LINE2"],
             trash["TLE_LINE0"]
         )
-        if (index == 0){
-            newTrash.setOrbitEnabled(true);
-        }
         trashList.push(newTrash)
 
     })
