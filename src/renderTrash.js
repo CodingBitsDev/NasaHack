@@ -1,23 +1,40 @@
 // import Orbit from './BabylonComponents/Orbit';
 import Trash from './BabylonComponents/Trash';
 
-import data from './data/spaceTrackDataDebriOnly.json';
-// import data from './data/spaceTrackDebri10k.json';
+// import data from './data/spaceTrackDataDebriOnly.json';
+// import data from "./data/spaceTrackDebri10k_clean.json";
 
-export default function renderTrash(scene){
+export default async function renderTrash(scene){
     let trashList = [];
+    
+    let result = await fetch("/spaceTrackDebri10k_clean.json") 
+    let data = await result.json()
+    console.log("###", data)
 
-    data.forEach(( trash, index ) => {
+    let renderMax = 1000
+    let step = 1
+
+    for (let index = 0; index < data.length; index++) {
+        let trash = data[index]
+        if (index > step * renderMax) {
+            await new Promise((resolve) => {
+            setTimeout(() => resolve(), 5000)
+            });
+            step++
+        }
         let newTrash = new Trash(
             scene,
             trash["TLE_LINE1"],
             trash["TLE_LINE2"],
             trash["TLE_LINE0"],
             trash,
-        )
+        );
         trashList.push(newTrash)
+        this.setTimeout( () => {
 
-    })
+        } , 1000)
+        
+    }
 
     let interval = 50;
     let currentStep = 0;
