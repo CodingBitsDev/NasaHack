@@ -27,13 +27,15 @@ export default function renderTrash(scene){
             let subList = trashList.slice(currentStep, currentStep + interval)
             currentStep = currentStep + interval;
             subList.forEach((trash) => {
-                if (trash) trash.update()
+                if (trash) trash.update(new Date())
             })
         } else {
             currentStep = 0;
         }
     }
     setInterval(update, 10);
+
+    return trashList;
     // // Sample TLE
     // var tleLine1 = '1 25544U 98067A   21275.52277778  .00006056  00000-0  11838-3 0  9993',
     // tleLine2 = '2 25544  51.6451 172.0044 0004138  50.9000 316.9051 15.48905523305232';  

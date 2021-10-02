@@ -10,7 +10,7 @@ export default class Trash{
 		this.uid = obvervationDate;
 		this.discoveryDate = discoveryDate;
 
-		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(1,1,1, 0.3),scene)
+		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(1,1,1,1),scene)
 		this.orbit.update();
 		this.trashSphere = scene.templateSphere.createInstance("instance" + uid);
 		this.trashSphere.position = this.orbit.currentPosition;
@@ -21,8 +21,8 @@ export default class Trash{
 		console.log("###", this.orbit)
 	}
 
-	update(){
-		this.orbit.update()
+	update(time){
+		this.orbit.update(time)
 		this.trashSphere.position = this.orbit.currentPosition;
 	}
 }
