@@ -3,15 +3,10 @@ import * as GUI from '@babylonjs/gui';
 import * as satellite from 'satellite.js';
 import Orbit from './BabylonComponents/Orbit';
 
-let renderInterval = null;
-
 export function updateOrbit(orbit) {
     let res = orbit.options.points.length;
     var time = new Date();
     var gmst = satellite.gstime(time);
-    let test = satellite.eciToGeodetic(satellite.propagate(orbit.satrec, time).position);
-    //console.log(test);
-    //console.log(satellite.degreesLong(test.longitude), satellite.degreesLat(test.latitude));
     for (let i = 0; i < res; i++){
         
         let pos = satellite.eciToEcf(satellite.propagate(orbit.satrec, time).position, gmst);
