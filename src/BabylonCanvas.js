@@ -21,7 +21,6 @@ export default function BabylonCanvas(){
 
 		let resize = () => {
 			engine.resize();
-			console.log("resize")
 		}
 		window.addEventListener("resize", resize);
 

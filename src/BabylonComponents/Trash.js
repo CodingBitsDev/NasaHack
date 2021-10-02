@@ -11,10 +11,14 @@ export default class Trash{
 		this.discoveryDate = discoveryDate;
 
 		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(1,1,1, 0.3),scene)
-		console.log(this.orbit)
 		this.orbit.update();
 		this.trashSphere = scene.templateSphere.createInstance("instance" + uid);
 		this.trashSphere.position = this.orbit.currentPosition;
+	}
+
+	setOrbitEnabled(enabled){
+		this.orbit.setEnabled(enabled);
+		console.log("###", this.orbit)
 	}
 
 	update(){

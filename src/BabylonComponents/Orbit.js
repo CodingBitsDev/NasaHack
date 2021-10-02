@@ -10,6 +10,8 @@ export default class Orbit{
     this.tleLine1 = tle1;
     this.tleLine2 = tle2;
 
+		this._enabled = false;
+
     // Initialize a satellite record
     let satrec = satellite.twoline2satrec(this.tleLine1, this.tleLine2);
 
@@ -31,13 +33,20 @@ export default class Orbit{
     }
   
     let lines = BABYLON.MeshBuilder.CreateLines("orbit_" + this.uid, options, this.scene);
+		lines.setEnabled(this._enabled)
 
     options.instance = lines;
 
     this.orbit = {
         satrec,
         options,
+				instance: lines,
     };
+	}
+
+	setEnabled(enabled){
+		this._enabled = enabled
+		this.orbit.options.instance.setEnabled(this._enabled)
 	}
 
 
@@ -46,8 +55,6 @@ export default class Orbit{
     var time = new Date();
     var gmst = satellite.gstime(time);
     let test = satellite.eciToGeodetic(satellite.propagate(this.orbit.satrec, time).position);
-    //console.log(test);
-    //console.log(satellite.degreesLong(test.longitude), satellite.degreesLat(test.latitude));
     for (let i = 0; i < res; i++){
         
         let pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
@@ -59,6 +66,10 @@ export default class Orbit{
     }
 
     this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options);
+		if (this._enabled){
+			console.log("###", this._enabled)
+		}
+		this.orbit.options.instance.setEnabled(this._enabled)
 		this.currentPosition = this.orbit.options.points[0]
 	}
 }
