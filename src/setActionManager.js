@@ -10,7 +10,7 @@ export function setActionManager(scene){
 
 	let lastSelected = null
 	function setSelected(newSelected){
-		if (newSelected && newSelected.setSelected) { 
+		if (newSelected && newSelected != lastSelected && newSelected.setSelected) { 
 			newSelected.setSelected(true)
 			if (lastSelected){
 				lastSelected.setSelected(false);
@@ -32,7 +32,7 @@ export function setActionManager(scene){
 	}));
 	scene.mainActionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, (ev) => {
 		if (ev.source.setActive) ev.source.setActive(!ev.source.active)
-		// setSelected(ev.source)
+		setSelected(ev.source)
 	}));
 
 }
