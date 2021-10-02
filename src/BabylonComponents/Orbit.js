@@ -17,7 +17,7 @@ export default class Orbit{
     let points = [];
     let colors = [];
 
-    const res = 100;
+    const res = 50;
     for (let i = 0; i < res; i++){
         points.push(new BABYLON.Vector3(0, 0, 0));
         colors.push(new BABYLON.Color4(this.color.r, this.color.g, this.color.b, (res - i) / res * this.color.a));
@@ -38,7 +38,7 @@ export default class Orbit{
     this.orbit = {
         satrec,
         options,
-				instance: lines,
+        instance: lines,
     };
 
 		this.setEnabled(false)
@@ -50,18 +50,17 @@ export default class Orbit{
 
 
 	update() {
-    let res = this.orbit.options.points.length;
+    let length = this.orbit.options.points.length;
     var time = new Date();
     var gmst = satellite.gstime(time);
     let test = satellite.eciToGeodetic(satellite.propagate(this.orbit.satrec, time).position);
-    for (let i = 0; i < res; i++){
-        
+    for (let i = 0; i < (this._enabled ? length : 1); i++){
         let pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
         let point = this.orbit.options.points[i];
-        point.x = pos.y / 100;
+        point.x = pos.x / 100;
         point.y = pos.z / 100;
-        point.z = -pos.x / 100;
-        time.setSeconds(time.getSeconds() - 30);
+        point.z = pos.y / 100;
+        time.setSeconds(time.getSeconds() - 60);
     }
 
     this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options);
