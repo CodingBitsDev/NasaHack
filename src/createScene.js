@@ -42,7 +42,7 @@ export function createScene (engine, canvas) {
   let trash = renderTrash(scene);
 
   scene.clearColor = new BABYLON.Color3(0, 0, 0);
-  
+
   return scene;
 };
 
