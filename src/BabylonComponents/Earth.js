@@ -3,7 +3,7 @@ import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 export default class Earth{
 	constructor(scene){
 		this.scene = scene;
-		this.sphere = BABYLON.MeshBuilder.CreateSphere("earth", {diameter: 127.42, segments: 32}, scene);
+		this.sphere = BABYLON.MeshBuilder.CreateSphere("earth", {diameter: 127.42, segments: 50}, scene);
 		this.sphere.rotation.x = Math.PI;
 		this.sphere.rotation.y = Math.PI;
 
