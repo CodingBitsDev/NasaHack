@@ -23,6 +23,20 @@ export function createScene (engine, canvas) {
 
   orbit = renderOrbit(scene);
 
+
+	//Inspector
+  let inspectorVisible = false;
+	document.addEventListener("keydown", evt => {
+		var shortcutPressed = evt.key === "b" && evt.ctrlKey && evt.altKey;
+		if (!shortcutPressed) return;
+		if (inspectorVisible) {
+			scene.debugLayer.hide();
+		} else {
+			scene.debugLayer.show();
+		}
+		inspectorVisible = !inspectorVisible;
+	});
+
   return scene;
 };
 

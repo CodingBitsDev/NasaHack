@@ -16,7 +16,6 @@ export default function BabylonCanvas(){
 		const scene = createScene(engine, canvas); 
 
 		engine.runRenderLoop(function () {
-			updateScene();
 			scene.render();
 		});
 
