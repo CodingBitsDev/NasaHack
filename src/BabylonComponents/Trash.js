@@ -14,11 +14,23 @@ export default class Trash{
 		this.orbit.update();
 		this.trashSphere = scene.templateSphere.createInstance("instance" + uid);
 		this.trashSphere.position = this.orbit.currentPosition;
+		this.trashSphere.selected = false;
+
+    this.trashSphere.actionManager = scene.mainActionManager;
+		this.trashSphere.setOrbitEnabled = this.setOrbitEnabled.bind(this);
+		this.trashSphere.setSelected = this.setSelected.bind(this);
+
+	}
+
+	setSelected(selected){
+		this.trashSphere.selected = selected
+		if (selected) this.orbit.setEnabled(true);
 	}
 
 	setOrbitEnabled(enabled){
-		this.orbit.setEnabled(enabled);
-		console.log("###", this.orbit)
+		if (!this.trashSphere.selected){
+			this.orbit.setEnabled(enabled);
+		}
 	}
 
 	update(){
