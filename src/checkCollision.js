@@ -1,19 +1,17 @@
 export default function checkCollision(trashList, crashDistance) {
     let crashDistSqr = crashDistance * crashDistance;
 
-console.log("Cheking for " + trashList.length);
-
     let crashCells = []
     let tp, tp2, cx, cy, cz, distSqr;
     for (let i = 0; i < trashList.length; i++) {
         tp = trashList[i].orbit.currentPosition;
 
         // determine and create own cell
-        cx = Math.floor(tp.x / 1000);
+        cx = Math.floor(tp.x / 10);
         if (!crashCells[cx]) {crashCells[cx] = []}
-        cy = Math.floor(tp.y / 1000);
+        cy = Math.floor(tp.y / 10);
         if (!crashCells[cx][cy]) {crashCells[cx][cy] = []}
-        cz = Math.floor(tp.z / 1000);
+        cz = Math.floor(tp.z / 10);
         if (!crashCells[cx][cy][cz]) {crashCells[cx][cy][cz] = []}
 
         // check neighboring cells for trash
@@ -50,7 +48,9 @@ console.log("Cheking for " + trashList.length);
         // register self in crash Cell
         crashCells[cx][cy][cz].push({
             index: i,
-            position: tp
+            x: tp.x,
+            y: tp.y,
+            z: tp.z,
         })
     }
 

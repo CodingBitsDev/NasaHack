@@ -61,7 +61,11 @@ export function createScene (engine, canvas) {
 };
 
 export function updateScene() {
-  checkCollision(trash, 100);
+  let collision = checkCollision(trash, 0.1);
+  if (collision.crash) {
+    collision.trash1.setActive(true);
+    collision.trash2.setActive(true);
+  }
 
 	if (this.autoUpdateScene) this.globalTime = new Date();
 }
