@@ -46,6 +46,7 @@ export default class Orbit{
 
 	setEnabled(enabled){
 		this.orbit.options.instance.setEnabled(enabled)
+		this.update();
 	}
 
 
@@ -54,7 +55,7 @@ export default class Orbit{
     var time = new Date();
     var gmst = satellite.gstime(time);
     let test = satellite.eciToGeodetic(satellite.propagate(this.orbit.satrec, time).position);
-    for (let i = 0; i < (this._enabled ? length : 1); i++){
+    for (let i = 0; i < (this.orbit.options.instance.isEnabled() ? length : 1); i++){
         let pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
         let point = this.orbit.options.points[i];
         point.x = pos.x / 100;
