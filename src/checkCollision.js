@@ -28,10 +28,10 @@ export default function checkCollision(trashList, crashDistance) {
                                 + (tp.z - tp2.z) * (tp.z - tp2.z));
             
                             if (distSqr < crashDistSqr) {
-                                console.log("COLLISION WARNING:",
-                                    "distance: " +  Math.sqrt(distSqr),
-                                    cx, cy, cz, ncx, ncy, ncz
-                                )
+                                // console.log("COLLISION WARNING:",
+                                //     "distance: " +  Math.sqrt(distSqr),
+                                //     cx, cy, cz, ncx, ncy, ncz
+                                // )
                                 return {
                                     crash: true,
                                     trash1: trashList[i],

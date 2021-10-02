@@ -6,7 +6,7 @@ import { createScene, updateScene } from "./createScene"
 window['BABYLON'] = BABYLON;
 
 
-export default function BabylonCanvas(){
+export default function BabylonCanvas({ onSceneReady }){
 	let canvasRef = useRef(null)
 
 	useEffect(() => {
@@ -14,6 +14,7 @@ export default function BabylonCanvas(){
 		let canvas = canvasRef.current
 		const engine = new BABYLON.Engine(canvas, true); 
 		const scene = createScene(engine, canvas); 
+		if (onSceneReady) onSceneReady(scene)
 
 		engine.runRenderLoop(function () {
 			scene.render();
