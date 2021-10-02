@@ -12,7 +12,8 @@ export default function renderTrash(scene){
             scene,
             trash["TLE_LINE1"],
             trash["TLE_LINE2"],
-            trash["TLE_LINE0"]
+            trash["TLE_LINE0"],
+            trash,
         )
         trashList.push(newTrash)
 

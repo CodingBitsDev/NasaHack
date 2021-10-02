@@ -4,6 +4,7 @@ import * as GUI from '@babylonjs/gui';
 import renderTrash from './renderTrash';
 import Earth from './BabylonComponents/Earth';
 import Axis from './BabylonComponents/Axis';
+import { setActionManager } from './setActionManager';
 
 export function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
@@ -35,19 +36,6 @@ export function createScene (engine, canvas) {
 		inspectorVisible = !inspectorVisible;
 	});
 
-	scene.mainActionManager = new BABYLON.ActionManager(scene);
-	scene.mainActionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, (ev) => {
-		ev.source.scaling = new BABYLON.Vector3(2,2,2)
-		if (ev.source.setOrbitEnabled) ev.source.setOrbitEnabled(true)
-	}));
-	scene.mainActionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, (ev) => {
-		ev.source.scaling = new BABYLON.Vector3(1,1,1)
-		if (ev.source.setOrbitEnabled) ev.source.setOrbitEnabled(false)
-	}));
-	scene.mainActionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, (ev) => {
-		if (ev.source.setSelected) ev.source.setSelected(!ev.source.selected)
-	}));
-
  	// Add a camera to the scene and attach it to the canvas
 	// const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, BABYLON.Vector3.Zero(), scene);
 	const camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI/2, 1.1, 190, BABYLON.Vector3.Zero(), scene);
@@ -55,6 +43,7 @@ export function createScene (engine, canvas) {
   // const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
 	// light.intensity = 0.7;
 	// light.diffuse = new BABYLON.Vector3(3,3,3)
+	setActionManager(scene);
 
 	createTemplateSphere(scene)
 
