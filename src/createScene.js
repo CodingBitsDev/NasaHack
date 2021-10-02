@@ -16,6 +16,8 @@ export function createScene (engine, canvas) {
 	scene.update = updateScene
 	scene.canvas = canvas
 
+	scene.useGeometryIdsMap = true
+
 	setInterval(() => {
 		scene.update();
 	}, 100)
@@ -62,26 +64,30 @@ export function createScene (engine, canvas) {
 };
 
 export function updateScene() {
-  let collision = checkCollision(trash, 0.2);
-  if (collision.crash) {
-    collision.trash1.setActive(true);
-    collision.trash2.setActive(true);
-  }
+  // let collision = checkCollision(trash, 0.2);
+  // if (collision.crash) {
+  //   collision.trash1.setActive(true);
+  //   collision.trash2.setActive(true);
+  // }
 
 	if (this.autoUpdateTime) this.globalTime = new Date();
 }
 
 function createTemplateSphere(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 5}, scene);
+		// let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 3}, scene);
+		let sphere = BABYLON.MeshBuilder.CreateDisc("sphere", {diameter: 0.5, tessellation: 8}, scene);
 		// sphere.position = new BABYLON.Vector3(70,0,0)
-		sphere.rotation.x = Math.PI;
-		sphere.rotation.y = -Math.PI/2;
+		//sphere.rotation.x = Math.PI;
+		//sphere.rotation.y = -Math.PI/2;
+
+    sphere.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
 
 				//Create dynamic texture
 		const mat = new BABYLON.StandardMaterial("earthMat", scene);    				
 		mat.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
 
 		sphere.material = mat;
+		sphere.material.freeze();
 
 		sphere.isVisible = false;
 		scene.templateSphere = sphere
