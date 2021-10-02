@@ -5,7 +5,7 @@ export default class Earth{
 		this.scene = scene;
 		this.sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 127.42, segments: 32}, scene);
 		this.sphere.rotation.x = Math.PI;
-		this.sphere.rotation.y = -Math.PI/2;
+		this.sphere.rotation.y = Math.PI;
 
 				//Create dynamic texture
 		const width = 2048;
@@ -15,7 +15,6 @@ export default class Earth{
 	
 		const earthMat = new BABYLON.StandardMaterial("earthMat", scene);    				
 		earthMat.diffuseTexture = texture;
-		earthMat.material = earthMat;
 		earthMat.diffuseColor = BABYLON.Color3.Gray();
 		//earthMat.bumpTexture = new BABYLON.Texture("/textures/gebco_08_rev_elev_2M.png", scene);  
 

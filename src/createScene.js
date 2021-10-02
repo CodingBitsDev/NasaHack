@@ -1,24 +1,26 @@
 import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as GUI from '@babylonjs/gui';
 
+import renderTrash from './renderTrash';
 import Earth from './BabylonComponents/Earth';
-
-import renderOrbit, { updateOrbit } from './renderOrbit';
-
-var orbit;
+import Axis from './BabylonComponents/Axis';
 
 export function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
 
 	//Inspector
   let inspectorVisible = false;
+  let axis = new Axis(scene);
+
 	document.addEventListener("keydown", evt => {
 		var shortcutPressed = evt.key === "b" && evt.ctrlKey && evt.altKey;
 		if (!shortcutPressed) return;
 		if (inspectorVisible) {
 			scene.debugLayer.hide();
+			axis.toggle()
 		} else {
 			scene.debugLayer.show();
+			axis.toggle()
 		}
 		inspectorVisible = !inspectorVisible;
 	});
@@ -33,15 +35,29 @@ export function createScene (engine, canvas) {
 	light.intensity = 0.7;
 	light.diffuse = new BABYLON.Vector3(3,3,3)
 
+	createTemplateSphere(scene)
+
 	const earth = new Earth(scene);
 
-
-  orbit = renderOrbit(scene);
-
-
+  let trash = renderTrash(scene);
   return scene;
 };
 
 export function updateScene() {
-  updateOrbit(orbit);
+}
+
+function createTemplateSphere(scene){
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 32}, scene);
+		// sphere.position = new BABYLON.Vector3(70,0,0)
+		sphere.rotation.x = Math.PI;
+		sphere.rotation.y = -Math.PI/2;
+
+				//Create dynamic texture
+		const earthMat = new BABYLON.StandardMaterial("earthMat", scene);    				
+		earthMat.diffuseColor = BABYLON.Color3.Gray();
+
+		sphere.material = earthMat;
+
+		sphere.isVisible = false;
+		scene.templateSphere = sphere
 }
