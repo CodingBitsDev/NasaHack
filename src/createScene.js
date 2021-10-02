@@ -11,7 +11,7 @@ let trash;
 
 export function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
-	scene.autoUpdateScene = true;
+	scene.autoUpdateTime = true;
 	scene.globalTime = new Date();
 	scene.update = updateScene
 	scene.canvas = canvas
@@ -68,7 +68,7 @@ export function updateScene() {
     collision.trash2.setActive(true);
   }
 
-	if (this.autoUpdateScene) this.globalTime = new Date();
+	if (this.autoUpdateTime) this.globalTime = new Date();
 }
 
 function createTemplateSphere(scene){
