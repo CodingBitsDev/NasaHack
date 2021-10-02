@@ -74,10 +74,13 @@ export function updateScene() {
 }
 
 function createTemplateSphere(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 3}, scene);
+		// let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 3}, scene);
+		let sphere = BABYLON.MeshBuilder.CreateDisc("sphere", {diameter: 0.5, tessellation: 8}, scene);
 		// sphere.position = new BABYLON.Vector3(70,0,0)
-		sphere.rotation.x = Math.PI;
-		sphere.rotation.y = -Math.PI/2;
+		//sphere.rotation.x = Math.PI;
+		//sphere.rotation.y = -Math.PI/2;
+
+    sphere.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
 
 				//Create dynamic texture
 		const mat = new BABYLON.StandardMaterial("earthMat", scene);    				
