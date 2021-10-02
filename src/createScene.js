@@ -2,6 +2,9 @@ import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as GUI from '@babylonjs/gui';
 
 import createEarth from "./createEarth";
+import renderOrbit, { updateOrbit } from './renderOrbit';
+
+var orbit;
 
 export function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
@@ -17,22 +20,26 @@ export function createScene (engine, canvas) {
 
 	const earth = createEarth(scene);
 
-  let path = [];
-  const res = 100;
-  for (let i = 0; i < res + 1; i++){
-    path.push(new BABYLON.Vector3(
-      Math.sin(i * Math.PI * 2 / res) * 75,
-      0,
-      Math.cos(i * Math.PI * 2 / res) * 75
-    ))
-  }
 
-  const options = {
-    points: path, //vec3 array,
-    updatable: true
-  }
+  orbit = renderOrbit(scene);
 
-  let lines = BABYLON.MeshBuilder.CreateLines("lines", options, scene);
+
+	//Inspector
+  let inspectorVisible = false;
+	document.addEventListener("keydown", evt => {
+		var shortcutPressed = evt.key === "b" && evt.ctrlKey && evt.altKey;
+		if (!shortcutPressed) return;
+		if (inspectorVisible) {
+			scene.debugLayer.hide();
+		} else {
+			scene.debugLayer.show();
+		}
+		inspectorVisible = !inspectorVisible;
+	});
 
   return scene;
 };
+
+export function updateScene() {
+  updateOrbit(orbit);
+}

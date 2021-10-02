@@ -2,14 +2,8 @@ import { useEffect } from 'react';
 import './App.scss';
 import BabylonCanvas from './BabylonCanvas';
 import {handleData} from './handleData';
-
-if (window.location.href.includes('debug')) {
-  import("@babylonjs/core/Debug/debugLayer").then(() => {
-    import('@babylonjs/inspector').then(() => {
-      console.log("inspector loaded")
-    });
-  })
-}
+import("@babylonjs/core/Debug/debugLayer")
+import('@babylonjs/inspector')
 
 
 function App() {

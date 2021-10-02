@@ -2,7 +2,7 @@ import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as GUI from '@babylonjs/gui';
 
 export default function createEarth(scene){
-	const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 140, segments: 32}, scene);
+	const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 127.42, segments: 32}, scene);
 	sphere.rotation.x = Math.PI;
 	sphere.rotation.y = -Math.PI/2;
 
