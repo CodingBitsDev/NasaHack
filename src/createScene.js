@@ -40,6 +40,9 @@ export function createScene (engine, canvas) {
 	const earth = new Earth(scene);
 
   let trash = renderTrash(scene);
+
+  scene.clearColor = new BABYLON.Color3(0, 0, 0);
+  
   return scene;
 };
 
