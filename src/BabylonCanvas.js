@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react"
 import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as GUI from '@babylonjs/gui';
-import { createScene } from "./createScene"
+import { createScene, updateScene } from "./createScene"
 
 window['BABYLON'] = BABYLON;
 
@@ -16,8 +16,9 @@ export default function BabylonCanvas(){
 		const scene = createScene(engine, canvas); 
 
 		engine.runRenderLoop(function () {
-    	scene.render();
-    });
+			updateScene();
+			scene.render();
+		});
 
 		let resize = () => {
 			engine.resize();
