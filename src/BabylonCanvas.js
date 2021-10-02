@@ -1,8 +1,10 @@
 import React, {useEffect, useRef, useState} from "react"
-import * as BABYLON from "babylonjs"
+import * as BABYLON from '@babylonjs/core/Legacy/legacy';
+import * as GUI from '@babylonjs/gui';
 import { createScene } from "./createScene"
 
 window['BABYLON'] = BABYLON;
+
 
 export default function BabylonCanvas(){
 	let canvasRef = useRef(null)
@@ -11,7 +13,7 @@ export default function BabylonCanvas(){
 		if (!canvasRef.current) return;
 		let canvas = canvasRef.current
 		const engine = new BABYLON.Engine(canvas, true); 
-		const scene = window.scene = createScene(engine, canvas); 
+		const scene = createScene(engine, canvas); 
 
 		engine.runRenderLoop(function () {
     	scene.render();
