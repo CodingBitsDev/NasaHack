@@ -61,7 +61,7 @@ export function createScene (engine, canvas) {
 };
 
 export function updateScene() {
-  let collision = checkCollision(trash, 0.1);
+  let collision = checkCollision(trash, 0.2);
   if (collision.crash) {
     collision.trash1.setActive(true);
     collision.trash2.setActive(true);
@@ -71,7 +71,7 @@ export function updateScene() {
 }
 
 function createTemplateSphere(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 32}, scene);
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 5}, scene);
 		// sphere.position = new BABYLON.Vector3(70,0,0)
 		sphere.rotation.x = Math.PI;
 		sphere.rotation.y = -Math.PI/2;

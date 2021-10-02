@@ -23,7 +23,7 @@ export default class Orbit{
         colors.push(new BABYLON.Color4(this.color.r, this.color.g, this.color.b, (res - i) / res * this.color.a));
     }
 
-		this.currentPosition = points[0];
+    this.currentPosition = points[0];
   
     const options = {
         points, 
@@ -41,26 +41,26 @@ export default class Orbit{
         instance: lines,
     };
 
-		this.setEnabled(false)
-	}
+    this.setEnabled(false)
+}
 
-	setEnabled(enabled){
-		this.orbit.options.instance.setEnabled(enabled)
-		this.update();
-	}
+setEnabled(enabled){
+    this.orbit.options.instance.setEnabled(enabled)
+    this.update();
+}
 
 
-	update() {
+update() {
     let length = this.orbit.options.points.length;
     var time = new Date(this.scene.globalTime); 
     var gmst = satellite.gstime(time);
-    let test = satellite.eciToGeodetic(satellite.propagate(this.orbit.satrec, time).position);
     for (let i = 0; i < (this.orbit.options.instance.isEnabled() ? length : 1); i++){
         let pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
         let point = this.orbit.options.points[i];
         point.x = pos.x / 100;
         point.y = pos.z / 100;
         point.z = pos.y / 100;
+
         time.setSeconds(time.getSeconds() - 60);
     }
 
