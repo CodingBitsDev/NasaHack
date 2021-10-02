@@ -16,7 +16,7 @@ export default class Orbit{
     let points = [];
     let colors = [];
 
-    const res = 100;
+    const res = 25;
     for (let i = 0; i < res; i++){
         points.push(new BABYLON.Vector3(0, 0, 0));
         colors.push(new BABYLON.Color4(this.color.r, this.color.g, this.color.b, (res - i) / res * this.color.a));
@@ -52,10 +52,10 @@ export default class Orbit{
         
         let pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
         let point = this.orbit.options.points[i];
-        point.x = pos.y / 100;
+        point.x = pos.x / 100;
         point.y = pos.z / 100;
-        point.z = -pos.x / 100;
-        time.setSeconds(time.getSeconds() - 30);
+        point.z = pos.y / 100;
+        time.setSeconds(time.getSeconds() - 100);
     }
 
     this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options);
