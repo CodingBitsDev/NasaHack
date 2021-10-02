@@ -22,7 +22,7 @@ export default class Orbit{
         colors.push(new BABYLON.Color4(this.color.r, this.color.g, this.color.b, (res - i) / res * this.color.a));
     }
 
-		this.startPosition = points[0];
+		this.currentPosition = points[0];
   
     const options = {
         points, 
@@ -59,5 +59,6 @@ export default class Orbit{
     }
 
     this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options);
+		this.currentPosition = this.orbit.options.points[0]
 	}
 }

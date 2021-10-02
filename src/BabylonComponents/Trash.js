@@ -14,10 +14,11 @@ export default class Trash{
 		console.log(this.orbit)
 		this.orbit.update();
 		this.trashSphere = scene.templateSphere.createInstance("instance" + uid);
-		this.trashSphere.position = this.orbit.startPosition;
+		this.trashSphere.position = this.orbit.currentPosition;
 	}
 
 	update(){
 		this.orbit.update()
+		this.trashSphere.position = this.orbit.currentPosition;
 	}
 }

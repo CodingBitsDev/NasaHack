@@ -4,8 +4,6 @@ import Trash from './BabylonComponents/Trash';
 import data from './data/spaceTrackDataDebriOnly.json';
 
 export default function renderTrash(scene){
-    console.log(data)
-
     let trashList = [];
 
     data.forEach(trash => {
@@ -19,6 +17,21 @@ export default function renderTrash(scene){
         trashList.push(newTrash)
 
     })
+
+    let interval = 50;
+    let currentStep = 0;
+    let update = () => {
+        if (trashList.length > currentStep){
+            let subList = trashList.slice(currentStep, currentStep + interval)
+            currentStep = currentStep + interval;
+            subList.forEach((trash) => {
+                if (trash) trash.update()
+            })
+        } else {
+            currentStep = 0;
+        }
+    }
+    setInterval(update, 500);
     // // Sample TLE
     // var tleLine1 = '1 25544U 98067A   21275.52277778  .00006056  00000-0  11838-3 0  9993',
     // tleLine2 = '2 25544  51.6451 172.0044 0004138  50.9000 316.9051 15.48905523305232';  

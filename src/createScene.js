@@ -1,24 +1,26 @@
 import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as GUI from '@babylonjs/gui';
 
-import Earth from './BabylonComponents/Earth';
-
 import renderTrash from './renderTrash';
-
-var orbit;
+import Earth from './BabylonComponents/Earth';
+import Axis from './BabylonComponents/Axis';
 
 export function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
 
 	//Inspector
   let inspectorVisible = false;
+  let axis = new Axis(scene);
+
 	document.addEventListener("keydown", evt => {
 		var shortcutPressed = evt.key === "b" && evt.ctrlKey && evt.altKey;
 		if (!shortcutPressed) return;
 		if (inspectorVisible) {
 			scene.debugLayer.hide();
+			axis.toggle()
 		} else {
 			scene.debugLayer.show();
+			axis.toggle()
 		}
 		inspectorVisible = !inspectorVisible;
 	});
@@ -36,9 +38,6 @@ export function createScene (engine, canvas) {
 	createTemplateSphere(scene)
 
 	const earth = new Earth(scene);
-
-
-
 
   let trash = renderTrash(scene);
   return scene;

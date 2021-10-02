@@ -5,7 +5,7 @@ export default class Earth{
 		this.scene = scene;
 		this.sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 127.42, segments: 32}, scene);
 		this.sphere.rotation.x = Math.PI;
-		this.sphere.rotation.y = -Math.PI/2;
+		this.sphere.rotation.y = Math.PI;
 
 				//Create dynamic texture
 		const width = 2048;
