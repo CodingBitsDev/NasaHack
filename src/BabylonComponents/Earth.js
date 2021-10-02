@@ -3,7 +3,7 @@ import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 export default class Earth{
 	constructor(scene){
 		this.scene = scene;
-		this.sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 127.42, segments: 32}, scene);
+		this.sphere = BABYLON.MeshBuilder.CreateSphere("earth", {diameter: 127.42, segments: 32}, scene);
 		this.sphere.rotation.x = Math.PI;
 		this.sphere.rotation.y = Math.PI;
 
@@ -14,8 +14,8 @@ export default class Earth{
 		const context = texture.getContext();
 	
 		const earthMat = new BABYLON.StandardMaterial("earthMat", scene);    				
-		earthMat.diffuseTexture = texture;
-		earthMat.diffuseColor = BABYLON.Color3.Gray();
+		earthMat.emissiveTexture = texture;
+		earthMat.emissiveColor = new BABYLON.Color3(0.0, 0.0, 0.0);
 		//earthMat.bumpTexture = new BABYLON.Texture("/textures/gebco_08_rev_elev_2M.png", scene);  
 
 		this.sphere.material = earthMat;

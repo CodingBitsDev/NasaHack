@@ -44,9 +44,9 @@ export function createScene (engine, canvas) {
 	// const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, BABYLON.Vector3.Zero(), scene);
 	const camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI/2, 1.1, 190, BABYLON.Vector3.Zero(), scene);
   camera.attachControl(canvas, true);
-  const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
-	light.intensity = 0.7;
-	light.diffuse = new BABYLON.Vector3(3,3,3)
+  // const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
+	// light.intensity = 0.7;
+	// light.diffuse = new BABYLON.Vector3(3,3,3)
 
 	createTemplateSphere(scene)
 

@@ -13,6 +13,7 @@ export default class Trash{
 		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(1,1,1,1),scene)
 		this.orbit.update();
 		this.trashSphere = scene.templateSphere.createInstance("instance" + uid);
+		this.trashSphere.material.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
 		this.trashSphere.position = this.orbit.currentPosition;
 		this.trashSphere.selected = false;
 

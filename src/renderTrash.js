@@ -2,6 +2,7 @@
 import Trash from './BabylonComponents/Trash';
 
 import data from './data/spaceTrackDataDebriOnly.json';
+// import data from './data/spaceTrackDebri10k.json';
 
 export default function renderTrash(scene){
     let trashList = [];
