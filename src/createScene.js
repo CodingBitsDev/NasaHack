@@ -7,6 +7,14 @@ import Axis from './BabylonComponents/Axis';
 
 export function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
+	scene.autoUpdateScene = true;
+	scene.globalTime = new Date();
+	scene.update = updateScene
+
+	setInterval(() => {
+		scene.update();
+	}, 100)
+
 
 	window.scene = scene;
 
@@ -60,6 +68,7 @@ export function createScene (engine, canvas) {
 };
 
 export function updateScene() {
+	if (this.autoUpdateScene) this.globalTime = new Date();
 }
 
 function createTemplateSphere(scene){
