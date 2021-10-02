@@ -1,11 +1,15 @@
 import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as GUI from '@babylonjs/gui';
 
-import Earth from './BabylonComponents/Earth';
 
+import Earth from './BabylonComponents/Earth';
+import createAxis from './createAxis';
 import renderOrbit, { updateOrbit } from './renderOrbit';
 
+import { earthData } from "./spaceTrackDataSet.json.js";
+
 var orbit;
+var data;
 
 export function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
@@ -33,8 +37,12 @@ export function createScene (engine, canvas) {
 	light.intensity = 0.7;
 	light.diffuse = new BABYLON.Vector3(3,3,3)
 
+  console.log(earthData);
+
 	const earth = new Earth(scene);
 
+
+  createAxis(scene);
 
   orbit = renderOrbit(scene);
 

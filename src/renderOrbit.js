@@ -15,9 +15,9 @@ export function updateOrbit(orbit) {
         
         let pos = satellite.eciToEcf(satellite.propagate(orbit.satrec, time).position, gmst);
         let point = orbit.options.points[i];
-        point.x = pos.y / 100;
+        point.x = pos.x / 100;
         point.y = pos.z / 100;
-        point.z = -pos.x / 100;
+        point.z = pos.y / 100;
         time.setSeconds(time.getSeconds() - 30);
     }
 
