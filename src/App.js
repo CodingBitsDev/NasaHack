@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import './scss/App.scss';
 import BabylonCanvas from './BabylonCanvas';
 import TimeSettingsContainer from './reactComponents/TimeSettingsContainer';
+import SettingsToolBar from './reactComponents/SettingsToolBar';
+
 import("@babylonjs/core/Debug/debugLayer")
 import('@babylonjs/inspector')
 
@@ -12,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <BabylonCanvas onSceneReady={setScene}/>
-      {scene && <TimeSettingsContainer scene={scene} />}
+      {scene && <SettingsToolBar scene={scene} />}
     </div>
   );
 }

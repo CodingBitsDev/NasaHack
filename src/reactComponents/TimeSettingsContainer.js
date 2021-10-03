@@ -4,6 +4,7 @@ export default function(props){
     let [time, setTime] = useState(props.scene.globalTime);
     let [isLiveMode, setIsLiveMode] = useState(true);
     let [speed, setSpeed] = useState(1);
+    let [showPopUp,setShowPopUp] = useState(false);
 
     let lifeClicked = () => {
         setSpeed(1);
@@ -37,7 +38,8 @@ export default function(props){
     }
     
     let editClicked = () => {
-        console.log("EDIT PRESSED");
+        setShowPopUp(true);
+        console.log("EDIT PRESSED popUp ", showPopUp);
     }
     
     let playClicked = () => {
@@ -67,6 +69,39 @@ export default function(props){
             return "pause";
         }
         return "Status";
+    }
+
+    let enterDate = () => {
+        let closeClicked = () => {
+            setShowPopUp(false);
+        }
+
+        let confirmClicked = () => {
+            setShowPopUp(false);
+        }
+
+        if(showPopUp){
+            return (
+                <div className="time-Settings-Enter-Date-Popup">
+                    <div style={{flexDirection: "column", display: "flex"}}>  
+                        <div style={{flexDirection: "row-reverse", display: "flex"}}>
+                            <div className="time-Settings-Enter-Date-Popup-CloseButton" onClick={closeClicked}>
+                                X
+                            </div> 
+                        </div>    
+                    <input className="time-Settings-Enter-Date-Popup-TextInput-Field" type="date"/>                                     
+                    <div style={{display:"flex", justifyContent: "center", alignItems:"center",  margin:"0.2em"}}>
+                        <div className="time-Settings-Enter-Date-Popup-Confirm-Button" onClick={confirmClicked}>
+                                Confirm
+                            </div>
+                        </div>                 
+                    </div>                       
+                </div>
+            )
+        }
+
+        return null;
+    
     }
 
     return (
@@ -111,6 +146,7 @@ export default function(props){
                   ✏️
                   </div>
             </div>
+            {enterDate()}
         </div>
     )
 }

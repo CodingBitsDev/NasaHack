@@ -1,8 +1,5 @@
 .time-settings-container{
-  position: absolute;
   z-index: 3;
-  left: 5%;
-  bottom: 10%;
   background-color: #515150; 
   color: #FFFFFF;
   align-items: center;
@@ -15,6 +12,7 @@
   padding-right: 2.5em;
   padding-top: 1em;
   padding-bottom: 1em;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .time-settings-forward{
@@ -32,6 +30,14 @@
   padding-left: 3%;
   min-width: 2em;
   user-select: none;
+}
+
+.time-settings-forward:hover{
+  background-color: #979797; 
+}
+
+.time-settings-forward:active{
+  background-color: #585858; 
 }
 
 .time-settings-pause{
@@ -54,6 +60,14 @@
   user-select: none;
 }
 
+.time-settings-pause:hover{
+  background-color: #979797; 
+}
+
+.time-settings-pause:active{
+  background-color: #585858; 
+}
+
 .timeSettings-LiveButton{
   background-color: #7B7A7A; 
   color: #FFFFFF;
@@ -72,6 +86,14 @@
   min-width: 4em;
   margin-top: 5%;
   user-select: none;
+}
+
+.timeSettings-LiveButton:hover{
+  background-color: #979797; 
+}
+
+.timeSettings-LiveButton:active{
+  background-color: #585858; 
 }
 
 .time-settings-LED-OFF{
@@ -124,4 +146,64 @@
   flex-direction: column;
   align-self: center;
   width: 5em;
+}
+
+.time-Settings-Enter-Date-Popup{
+  position: fixed;
+  top: 36%;
+  left: 36%;
+  z-index: 4;
+  border-width: 5px;
+  border-color: #1b1b1b;
+  background-color: #515150; 
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.time-Settings-Enter-Date-Popup-CloseButton{
+  text-align: center;
+  background-color: #7B7A7A; 
+  color: #FFFFFF;
+  width: 0.5em;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+  border-radius: 5px;
+}
+
+.time-Settings-Enter-Date-Popup-CloseButton:hover{
+  background-color: #9e0303; 
+}
+
+.time-Settings-Enter-Date-Popup-CloseButton:active{
+  background-color: #1b1b1b; 
+}
+
+.time-Settings-Enter-Date-Popup-Confirm-Button{
+  text-align: center;
+  background-color: #7B7A7A; 
+  color: #FFFFFF;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+  border-radius: 5px;
+  width: 4em;
+}
+
+.time-Settings-Enter-Date-Popup-Confirm-Button:hover{
+  background-color: #039e37; 
+}
+
+.time-Settings-Enter-Date-Popup-Confirm-Button:active{
+  background-color: #1b1b1b; 
+}
+
+.time-Settings-Enter-Date-Popup-TextInput-Field {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  background-color: #7a7a7a;
+  color: white;
 }
