@@ -137,7 +137,7 @@ export default function TimeSettingsContainer(props){
             return (
                 <div className="time-Settings-Enter-Date-Popup">
                     <div style={{flexDirection: "column", display: "flex"}}>  
-                        <div style={{flexDirection: "row-reverse", display: "flex"}}>
+                        <div style={{flexDirection: "row-reverse", display: "flex", marginBottom: "4%"}}>
                              <div className="time-Settings-Enter-Date-Popup-CloseButton" onClick={closeClicked}>
                                 X
                             </div> 
@@ -145,7 +145,7 @@ export default function TimeSettingsContainer(props){
                                 Enter Date
                             </div>
                         </div>    
-                        <div style={{marginLeft:"1em",marginRight: "1em"}}>
+                        <div style={{marginLeft:"1rem",marginRight: "1rem"}}>
                           <input id="Date Input" className="time-Settings-Enter-Date-Popup-TextInput-Field" type="date"/>                                     
                         </div>
                         <div style={{display:"flex", justifyContent: "center", alignItems:"center",  margin:"0.2em"}}>
