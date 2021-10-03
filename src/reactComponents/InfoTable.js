@@ -2,45 +2,68 @@ import React, {useState,useEffect,useRef} from "react";
 import {getTimeString,getYearString,} from "./TimeSettingsContainer";
 
 export default function(props){
-    let [selectedData, setSelectedData] = useState(null) 
+    let [selectedData, setSelectedData] = useState({});
+    let [show, setShow] = useState(false);
 
-    props.scene.canvas.addEventListener("trash_selected", (e) => { console.log("selected", e.detail)})
-
+    useEffect(() => {
+        props.scene.canvas.addEventListener("trash_selected", (e) => {
+            let data = e.detail.data
+            setSelectedData(data);
+            setShow(true);
+       })
+       props.scene.canvas.addEventListener("trash_unselected", (e) => {
+            setShow(false);
+        })
+    }, [])
+   
     let getEntrys = () => {
+        console.log(selectedData);
+
         let entrys = [];
-        entrys[0] = {
+        let index = 0;
+        entrys[index] = {
             id : "ALT",
             value : 150,
             unitA : "Km",
         };
-        entrys[1] = {
+        index += 1;
+        entrys[index] = {
             id : "SPEED",
             value : 80.25,
             unitA : "Km",
             unitB : "s"
         };
-        entrys[2] = {
+        index += 1;
+        entrys[index] = {
             id : "CAPTURED",
             value : getYearString(new Date()),
         };
-        entrys[3] = {
+        index += 1;
+        entrys[index] = {
             id : "APO",
             value : 250000,
             unitA : "Km",
         };
-        entrys[4] = {
+        index += 1;
+        entrys[index] = {
             id : "PER",
             value : 150000,
             unitA : "Km",
-        };
-        entrys[4] = {
+        }; 
+        index += 1;
+        entrys[index] = {
             id : "FIRST SEEN",
             value : getYearString(new Date()),
         };
-        entrys[5] = {
-            id : "UID",
-            value : 62457,
-        };
+        index += 1;
+        if(selectedData && selectedData.Name){
+            entrys[index] = {
+                id : "UID",
+                value : selectedData.Name,
+            };
+            index += 1;
+        }
+        
        return (
            <div>
                {entrys.map(item => (
@@ -51,15 +74,33 @@ export default function(props){
        );
     }
 
+    let getName = () => {
+        console.log(selectedData);
+        if(!selectedData){
+            return;
+        }
+        if(selectedData.satelite != undefined){
+            return selectedData.satelite;
+        }else if(selectedData?.data?.resData?.satelite){
+            return selectedData.data.resData.satelite;
+        }
+    }
+
     let infoTable = () => {
-        return (
-            <div className = "infoTable-container">
-                <div className = "infoTable-Header">
-                    IRIDIUM-33 DEB
+        if(show){
+            return (
+                <div className = "infoTable-container">
+                    <div className = "infoTable-Header">
+                        {getName()}
+                    </div>
+                    {getEntrys()}
                 </div>
-                {getEntrys()}
-            </div>
-        )
+            )
+        }
+        else{
+            return null;
+        }
+       
     }
     return (
         <div>
