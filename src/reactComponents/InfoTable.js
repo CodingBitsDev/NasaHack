@@ -17,8 +17,6 @@ export default function(props){
     }, [])
    
     let getEntrys = () => {
-        console.log(selectedData);
-
         let entrys = [];
         let index = 0;
         entrys[index] = {
@@ -75,7 +73,6 @@ export default function(props){
     }
 
     let getName = () => {
-        console.log(selectedData);
         if(!selectedData){
             return;
         }
