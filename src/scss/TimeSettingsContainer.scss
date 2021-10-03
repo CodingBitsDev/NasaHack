@@ -159,6 +159,7 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  margin: 3%;
 }
 .time-Settings-Enter-Date-Popup-CloseButton{
   text-align: center;
@@ -169,6 +170,7 @@
   margin-top: 0.5em;
   margin-right: 0.5em;
   border-radius: 5px;
+  user-select: none;
 }
 
 .time-Settings-Enter-Date-Popup-CloseButton:hover{
@@ -188,6 +190,7 @@
   margin-right: 0.5em;
   border-radius: 5px;
   width: 4em;
+  user-select: none;
 }
 
 .time-Settings-Enter-Date-Popup-Confirm-Button:hover{
@@ -204,6 +207,9 @@
   box-sizing: border-box;
   border: none;
   border-radius: 5px;
+  padding: 2%;
+  margin: 1%;
   background-color: #7a7a7a;
   color: white;
+  text-align: center;
 }
