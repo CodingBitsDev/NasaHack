@@ -72,6 +72,7 @@ export async function createScene (engine, canvas) {
 	// const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, BABYLON.Vector3.Zero(), scene);
 	const camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI/2, 1.1, 190, BABYLON.Vector3.Zero(), scene);
   camera.attachControl(canvas, true);
+	camera.lowerRadiusLimit = 100
 
   // const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
 	// light.intensity = 0.7;
@@ -93,7 +94,7 @@ export async function createScene (engine, canvas) {
 
 export function updateScene() {
 	if (trash){
-		let collision = checkCollision(trash, 0.2);
+		let collision = checkCollision(trash, 0.1);
 		if (collision.crash) {
 			collision.trash1.setOrbitEnabled(true);
 			collision.trash2.setOrbitEnabled(true);
