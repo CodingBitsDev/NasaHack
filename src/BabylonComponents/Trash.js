@@ -15,7 +15,6 @@ export default class Trash{
 			name: data.name,
 			restData: data,
 		}
-		console.log(this.data)
 
 		if(this.type == "satelite"){
 			this.trashSphere = scene.templateSphereSatelite.createInstance("instance" + uid);
