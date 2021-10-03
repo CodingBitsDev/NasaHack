@@ -54,6 +54,8 @@ export async function createScene (engine, canvas) {
 
 	scene.useGeometryIdsMap = true
 
+	scene.collision = {crash: false};
+
 	setInterval(() => {
 		scene.update();
 	}, 100)

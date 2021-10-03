@@ -56,7 +56,7 @@ export default async function renderTrash(scene){
                         resolve(true)
                     }
                 );
-                newTrash.update(scene.globalTime);
+                //newTrash.update(scene.globalTime);
                 trashList.push(newTrash)
             } , 0)
         }))
