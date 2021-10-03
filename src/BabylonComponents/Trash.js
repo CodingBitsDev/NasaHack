@@ -32,13 +32,16 @@ export default class Trash{
 	setSelected(selected){
 		this.trashSphere.selected = selected
 		if (selected){
-			this.selectedSphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.51, segments: 32}, this.scene);
+			this.selectedSphere = this.scene.selectSphere
+			this.selectedSphere.trashSphere = this.trashSphere;
 			this.selectedSphere.scaling = new BABYLON.Vector3(2,2,2)
-			this.selectedSphere.material = new BABYLON.StandardMaterial("earthMat", this.scene);    				
-			this.selectedSphere.material.emissiveColor = new BABYLON.Color3(0, 1, 0)
-			this.selectedSphere.isPickable = false;
+			this.selectedSphere.setEnabled(true)
+			this.selectedSphere.position = this.orbit.currentPosition;
 		} else {
-			this.selectedSphere.dispose()
+			this.selectedSphere.scaling = new BABYLON.Vector3(1,1,1)
+			if (this.selectedSphere.trashSphere == this.trashSphere){
+				this.selectedSphere.setEnabled(false)
+			}
 			this.selectedSphere = null;
 		}
 	}
@@ -59,6 +62,9 @@ export default class Trash{
 		if (active) this.orbit.setEnabled(true);
 	}
 
+	setEnabled(enabled){
+	}
+
 	setOrbitEnabled(enabled){
 		if (!this.trashSphere.active){
 			this.orbit.setEnabled(enabled);
@@ -66,6 +72,7 @@ export default class Trash{
 	}
 
 	update(time){
+		console.log("update")
 		this.orbit.update(time)
 		this.trashSphere.position = this.orbit.currentPosition;
 		if (this.selectedSphere) this.selectedSphere.position = this.orbit.currentPosition;

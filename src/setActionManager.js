@@ -18,6 +18,9 @@ export function setActionManager(scene){
 				lastSelected.setSelected(false);
 			}
 			lastSelected = newSelected;
+		} else if (newSelected == lastSelected){
+			lastSelected.setSelected(false);
+			lastSelected = null;
 		}
 
 

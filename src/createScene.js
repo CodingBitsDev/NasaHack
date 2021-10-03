@@ -52,7 +52,8 @@ export function createScene (engine, canvas) {
 	// light.diffuse = new BABYLON.Vector3(3,3,3)
 	setActionManager(scene);
 
-	createTemplateSphere(scene)
+	createTemplateSphere(scene);
+	createTemplateSphereHiglighted(scene);
 
 	const earth = new Earth(scene);
 
@@ -75,20 +76,18 @@ export function updateScene() {
 
 function createTemplateSphere(scene){
 		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 3}, scene);
-		//let sphere = BABYLON.MeshBuilder.CreateDisc("sphere", {diameter: 0.5, tessellation: 8}, scene);
-		// sphere.position = new BABYLON.Vector3(70,0,0)
-		//sphere.rotation.x = Math.PI;
-		//sphere.rotation.y = -Math.PI/2;
-
-    //sphere.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
-
-				//Create dynamic texture
-		const mat = new BABYLON.StandardMaterial("earthMat", scene);    				
-		mat.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
-
-		sphere.material = mat;
+		sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);    				
+		sphere.material.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
 		sphere.material.freeze();
-
 		sphere.isVisible = false;
 		scene.templateSphere = sphere
+}
+
+function createTemplateSphereHiglighted(scene){
+		let sphere = BABYLON.MeshBuilder.CreateSphere("selectSphere", {diameter: 0.51, segments: 3}, scene);
+		sphere.material = new BABYLON.StandardMaterial("sphereMatGreen", scene);    				
+		sphere.material.emissiveColor = new BABYLON.Vector3(0,1,0)
+		sphere.material.freeze();
+		sphere.isPickable = false;
+		scene.selectSphere = sphere
 }

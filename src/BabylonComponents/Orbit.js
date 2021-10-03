@@ -3,12 +3,14 @@ import * as GUI from '@babylonjs/gui';
 import * as satellite from 'satellite.js';
 
 export default class Orbit{
-	constructor(uid, tle1, tle2, color , scene ){
-		this.uid = uid;
-		this.color = color || new BABYLON.Color4(1,1,1, 0.5)
-		this.scene = scene;
+	constructor(uid, tle1, tle2, color , scene, enabled = false ){
+    this.uid = uid;
+    this.color = color || new BABYLON.Color4(1,1,1, 0.5)
+    this.scene = scene;
     this.tleLine1 = tle1;
     this.tleLine2 = tle2;
+
+    this.isEnabled = false;
 
 
     // Initialize a satellite record
@@ -31,21 +33,30 @@ export default class Orbit{
         updatable: true
     }
   
-    let lines = BABYLON.MeshBuilder.CreateLines("orbit_" + this.uid, options, this.scene);
-
-    options.instance = lines;
+    if (this.isEnabled){
+        let lines = BABYLON.MeshBuilder.CreateLines("orbit_" + this.uid, options, this.scene);
+        options.instance = lines;
+    }
 
     this.orbit = {
         satrec,
         options,
-        instance: lines,
     };
 
     this.setEnabled(false)
 }
 
 setEnabled(enabled, colision){
-    this.orbit.options.instance.setEnabled(enabled)
+    if (enabled) {
+        this.isEnabled = true
+    }
+    else {
+        if (this.orbit.options.instance){
+            this.orbit.options.instance.dispose(); 
+            this.orbit.options.instance = null;
+        }
+        this.isEnabled = false
+    } 
     this.update();
     if (colision && enabled){
 
@@ -57,7 +68,7 @@ update() {
     let length = this.orbit.options.points.length;
     var time = new Date(this.scene.globalTime); 
     var gmst = satellite.gstime(time);
-    for (let i = 0; i < (this.orbit.options.instance.isEnabled() ? length : 1); i++){
+    for (let i = 0; i < (this.isEnabled ? length : 1); i++){
         let pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
         let point = this.orbit.options.points[i];
         point.x = pos.x / 100;
@@ -67,7 +78,11 @@ update() {
         time.setSeconds(time.getSeconds() - 60);
     }
 
-    this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options);
-		this.currentPosition = this.orbit.options.points[0]
+    if (this.isEnabled && this.orbit.options.instance){
+        this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options);
+    } else if (this.isEnabled ) {
+        this.orbit.options.instance = BABYLON.MeshBuilder.CreateLines("lines", this.orbit.options, this.scene);
+    }
+    this.currentPosition = this.orbit.options.points[0]
 	}
 }
