@@ -1,6 +1,6 @@
 import React, {useState,useEffect,useRef} from "react";
 
-export default function(props){
+export default function TimeSettingsContainer(props){
     let [time, setTime] = useState(props.scene.globalTime);
     let [isLiveMode, setIsLiveMode] = useState(true);
     let [speed, setSpeed] = useState(1);
