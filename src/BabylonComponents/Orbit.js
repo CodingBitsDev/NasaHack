@@ -30,6 +30,9 @@ export default class Orbit{
     this.currentMovement = new BABYLON.Vector3(0, 0, 0);
     this.currentHeight = 0;
     this.currentCoordinates = new BABYLON.Vector2();
+
+    this.apo = this.orbit.satrec.alta * 6378;
+    this.per = this.orbit.satrec.altp * 6378;
   
     const options = {
         points, 
