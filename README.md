@@ -31,6 +31,7 @@ If we assume an equal distribution of objects over the globe and we scale the gr
 
 ## Visualization
 The Visualization is used via BabylonJS. A open source 3D rendering engine for the Web.
+The biggest challenge was to visualize and update 10000+ Debris in real time. This was done via the use of Model Instances and smartly loading and unloading Models. 
 
 ## React
 The UI was created via with the use of React JS.
