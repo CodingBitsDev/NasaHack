@@ -1,5 +1,9 @@
 import React, {useState,useEffect,useRef} from "react";
 
+import { FaForward } from '@react-icons/all-files/fa/FaForward';
+import { FaBackward } from '@react-icons/all-files/fa/FaBackward';
+
+
 export default function TimeSettingsContainer(props){
     let [time, setTime] = useState(props.scene.globalTime);
     let [isLiveMode, setIsLiveMode] = useState(true);
@@ -145,7 +149,7 @@ export default function TimeSettingsContainer(props){
                             </div>
                             <div className="time-settings-collum">
                                 <div className="time-settings-forward" onClick={rewindClicked}>
-                                ⏪︎
+                                    <FaBackward />
                                 </div>
                                 <div className="time-settings-Clock">
                                     <div>
@@ -156,7 +160,7 @@ export default function TimeSettingsContainer(props){
                                     </div>                
                                 </div>
                             <div className="time-settings-forward" onClick={forwarClicked}>
-                                    ⏩︎
+                                <FaForward />
                             </div>
                             </div>                   
                         </div>
