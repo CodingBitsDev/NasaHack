@@ -3,46 +3,111 @@ import React, {useState,useEffect,useRef} from "react";
 export default function(props){
     let [time, setTime] = useState(props.scene.globalTime);
     let [isLiveMode, setIsLiveMode] = useState(true);
+    let [speed, setSpeed] = useState(1);
 
     let lifeClicked = () => {
-        setIsLiveMode(true)
+        setSpeed(1);
+        setIsLiveMode(true);
+    }
+
+    let forwarClicked = () => {
+        let newspeed = speed * 2;
+        if(newspeed > 128){
+            newspeed = 128;
+        }
+        setSpeed(newspeed);
+        setIsLiveMode(false);
+        console.log("Forward Pressed new Speed: " + newspeed);
+    }
+    
+    let rewindClicked = () => {
+        let newspeed = speed/2;
+        if(newspeed < 0.25){
+            newspeed = 0.25;
+        }
+        setIsLiveMode(false);
+        setSpeed(newspeed);
+        console.log("REWIND PRESSED new Speed: " + newspeed);
+    }
+    
+    let pauseClicked = () => {
+        setSpeed(0)
+        setIsLiveMode(false);
+        console.log("PASUE PRESSED");
+    }
+    
+    let editClicked = () => {
+        console.log("EDIT PRESSED");
+    }
+    
+    let playClicked = () => {
+        setSpeed(1)
+        console.log("Play PRESSED");
+    }
+
+    let getLED = () => {
+        if(isLiveMode){
+            return (
+                <div className="time-settings-LED-ON">
+                </div>
+            );
+        }
+        return (
+            <div className="time-settings-LED-OFF">
+            </div>
+        );
+    }
+
+    let getStatus = () => {
+        console.log("STATUS: ", speed);
+        if(speed != 0){
+            return "X" + speed;
+        }
+        if(speed == 0){
+            return "pause";
+        }
+        return "Status";
     }
 
     return (
         <div className="time-settings-container">
             <div className="time-settings-collum">
-                <div className="time-settings-forward" onClick={onRewindPress}>
-                    ⏪︎
-                </div>
-                
-                    <div className="time-settings-Clock">
-                        <div>
-                            {getYearString(time)}
-                        </div>
-                        <div>
-                            {getTimeString(time)}
-                        </div>                
+                <div className="time-Settings-Status-Container">
+                    <div className="time-Settings-Status">
+                        {getStatus()}
                     </div>
-            
-                <div className="time-settings-forward" onClick={onForwardPress}>
-                     ⏩︎
-                  </div>
+                    <div className="time-settings-collum">
+                        <div className="time-settings-forward" onClick={rewindClicked}>
+                        ⏪︎
+                        </div>
+                        <div className="time-settings-Clock">
+                            <div>
+                                {getYearString(time)}
+                            </div>
+                            <div>
+                                {getTimeString(time)}
+                            </div>                
+                        </div>
+                       <div className="time-settings-forward" onClick={forwarClicked}>
+                             ⏩︎
+                       </div>
+                    </div>                   
+                </div>
             </div> 
             <div className="time-settings-collum">
-            <div className="time-settings-pause" onClick={onPausePress}>
+            <div className="time-settings-pause" onClick={pauseClicked}>
                     ⏸︎
                   </div>
-                  <div className="time-settings-pause" onClick={onPlayPress}>
+                  <div className="time-settings-pause" onClick={playClicked}>
                      ▶
                   </div>
-                  <div className="timeSettings-LiveButton" onClick={onLivePress}>
-                      <div style={{backgroundColor:0xFFFFFF}} className="time-settings-LED">
-                      </div>
+                  <div className="timeSettings-LiveButton" onClick={lifeClicked}>
+                        {getLED()}
                       <div style={{paddingLeft:5}}>
                          LIVE
                       </div>                  
                   </div>
-                  <div className="time-settings-pause" onClick={onEditPress}>
+                  <div className="time-settings-pause" onClick={editClicked}>
                   ✏️
                   </div>
             </div>
@@ -80,34 +145,10 @@ function getTimeString(date){
     }
 
     if(date.getSeconds() < 9){
-        timeString += "0" + date.getSeconds() + ":";
+        timeString += "0" + date.getSeconds();
     }else{
         timeString += date.getSeconds();
     }
 
     return timeString;
-}
-
-function onForwardPress(){
-    console.log("FORWARD PRESSED");
-}
-
-function onRewindPress(){
-    console.log("REWIND PRESSED");
-}
-
-function onPausePress(){
-    console.log("PASUE PRESSED");
-}
-
-function onEditPress(){
-    console.log("EDIT PRESSED");
-}
-
-function onLivePress(){
-    console.log("LIVE PRESSED");
-}
-
-function onPlayPress(){
-    console.log("Play PRESSED");
 }

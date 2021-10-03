@@ -11,10 +11,10 @@
   display: flex;
   flex-direction: column;
   display: flex;
-  padding-left: 6%;
-  padding-right: 6%;
-  padding-top: 3%;
-  padding-bottom: 2%;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 .time-settings-forward{
@@ -74,12 +74,30 @@
   user-select: none;
 }
 
-.time-settings-LED{
+.time-settings-LED-OFF{
   border-radius: 100%;
-  width: 1.4em;
-  height: 1.4em;
+  width: 1.3em;
+  height: 1.3em;
   background-color: #515150;
-  
+}
+
+.time-settings-LED-ON{
+  border-radius: 100%;
+  width: 1.3em;
+  height: 1.3em;
+  background-color: #c01104;
+}
+
+.time-settings-collum{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-Settings-Status-Container{
+  display: flex;
+  flex-direction: column;
 }
 
 .time-settings-Clock{
@@ -91,13 +109,19 @@
   text-align: center;
   vertical-align: middle;
   font-size: large;
-  padding: 5%;
+  padding: 10%;
+  padding-left: 1em;
+  padding-right: 1em;
   user-select: none;
 }
 
-.time-settings-collum{
+.time-Settings-Status{
+  background-color: #C4C4C4; 
+  color: #FFFFFF;
+  border-top-right-radius: 10%;
+  border-top-left-radius: 10%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  align-self: center;
+  width: 5em;
 }
