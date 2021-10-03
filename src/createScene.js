@@ -87,7 +87,7 @@ export async function createScene (engine, canvas) {
 
   trash = await renderTrash(scene);
 
-  scene.clearColor = new BABYLON.Color3(0, 0, 0);
+  scene.clearColor = new BABYLON.Color3(0.05, 0.05, 0.05);
 
   return scene;
 };
@@ -127,6 +127,7 @@ function createTemplateSphereSatelite(scene){
 		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereSatelite", {diameter: 0.5, segments: 3}, scene);
 		sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);    				
 		sphere.material.emissiveColor = new BABYLON.Vector3(0.6,0,0.4)
+		sphere.material.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
 		sphere.material.freeze();
 		sphere.isVisible = false;
 		scene.templateSphereSatelite = sphere
