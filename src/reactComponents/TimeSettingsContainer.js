@@ -6,9 +6,21 @@ export default function TimeSettingsContainer(props){
     let [speed, setSpeed] = useState(1);
     let [showPopUp,setShowPopUp] = useState(false);
 
+    useEffect(() => {
+        props.scene.onTimeUpdated((time) => {
+            setTime(time)
+        })
+    },[])
+
+    let updateSpeed = (i) => {    
+        setSpeed(i);
+        props.scene.setPlaybackSpeed(i);
+    }
+
     let lifeClicked = () => {
-        setSpeed(1);
+        updateSpeed(1);
         setIsLiveMode(true);
+        props.scene.setLiveMode(true);
     }
 
     let forwarClicked = () => {
@@ -16,8 +28,9 @@ export default function TimeSettingsContainer(props){
         if(newspeed > 128){
             newspeed = 128;
         }
-        setSpeed(newspeed);
+        updateSpeed(newspeed);
         setIsLiveMode(false);
+        props.scene.setLiveMode(false);
         console.log("Forward Pressed new Speed: " + newspeed);
     }
     
@@ -27,13 +40,15 @@ export default function TimeSettingsContainer(props){
             newspeed = 0.25;
         }
         setIsLiveMode(false);
-        setSpeed(newspeed);
+        props.scene.setLiveMode(false);
+        updateSpeed(newspeed);
         console.log("REWIND PRESSED new Speed: " + newspeed);
     }
     
     let pauseClicked = () => {
-        setSpeed(0)
+        updateSpeed(0)
         setIsLiveMode(false);
+        props.scene.setLiveMode(false);
         console.log("PASUE PRESSED");
     }
     
@@ -43,7 +58,7 @@ export default function TimeSettingsContainer(props){
     }
     
     let playClicked = () => {
-        setSpeed(1)
+        updateSpeed(1)
         console.log("Play PRESSED");
     }
 
@@ -77,6 +92,15 @@ export default function TimeSettingsContainer(props){
         }
 
         let confirmClicked = () => {
+            let newTime =  document.getElementById("Date Input").valueAsDate;
+       
+            if(newTime != null){
+                setIsLiveMode(false);
+                props.scene.setLiveMode(false);
+                updateSpeed(1);
+                props.scene.setGlobalTime(newTime);
+                console.log("New time selected: ", newTime);
+            }
             setShowPopUp(false);
         }
 
@@ -85,12 +109,17 @@ export default function TimeSettingsContainer(props){
                 <div className="time-Settings-Enter-Date-Popup">
                     <div style={{flexDirection: "column", display: "flex"}}>  
                         <div style={{flexDirection: "row-reverse", display: "flex"}}>
-                            <div className="time-Settings-Enter-Date-Popup-CloseButton" onClick={closeClicked}>
+                             <div className="time-Settings-Enter-Date-Popup-CloseButton" onClick={closeClicked}>
                                 X
                             </div> 
+                            <div style={{marginRight: "1em", marginLeft: "1em", textAlign:"center", display: "flex", alignItems: "center"}}>
+                                Enter Date
+                            </div>
                         </div>    
-                    <input className="time-Settings-Enter-Date-Popup-TextInput-Field" type="date"/>                                     
-                    <div style={{display:"flex", justifyContent: "center", alignItems:"center",  margin:"0.2em"}}>
+                        <div style={{marginLeft:"1em",marginRight: "1em"}}>
+                          <input id="Date Input" className="time-Settings-Enter-Date-Popup-TextInput-Field" type="date"/>                                     
+                        </div>
+                        <div style={{display:"flex", justifyContent: "center", alignItems:"center",  margin:"0.2em"}}>
                         <div className="time-Settings-Enter-Date-Popup-Confirm-Button" onClick={confirmClicked}>
                                 Confirm
                             </div>
@@ -105,49 +134,53 @@ export default function TimeSettingsContainer(props){
     }
 
     return (
-        <div className="time-settings-container">
-            <div className="time-settings-collum">
-                <div className="time-Settings-Status-Container">
-                    <div className="time-Settings-Status">
-                        {getStatus()}
-                    </div>
-                    <div className="time-settings-collum">
-                        <div className="time-settings-forward" onClick={rewindClicked}>
-                        ⏪︎
-                        </div>
-                        <div className="time-settings-Clock">
-                            <div>
-                                {getYearString(time)}
-                            </div>
-                            <div>
-                                {getTimeString(time)}
-                            </div>                
-                        </div>
-                       <div className="time-settings-forward" onClick={forwarClicked}>
-                            &#x23e9;&#xfe0e;
-                       </div>
-                    </div>                   
-                </div>
-            </div> 
-            <div className="time-settings-collum">
-            <div className="time-settings-pause" onClick={pauseClicked}>
-                    ⏸︎
-                  </div>
-                  <div className="time-settings-pause" onClick={playClicked}>
-                     ▶
-                  </div>
-                  <div className="timeSettings-LiveButton" onClick={lifeClicked}>
-                        {getLED()}
-                      <div style={{paddingLeft:5}}>
-                         LIVE
-                      </div>                  
-                  </div>
-                  <div className="time-settings-pause" onClick={editClicked}>
-                  ✏️
-                  </div>
-            </div>
+        <React.Fragment>
             {enterDate()}
-        </div>
+            <div className="tool-Bar-Container-MAX">
+                <div className="time-settings-container">
+                    <div className="time-settings-collum">
+                        <div className="time-Settings-Status-Container">
+                            <div className="time-Settings-Status">
+                                {getStatus()}
+                            </div>
+                            <div className="time-settings-collum">
+                                <div className="time-settings-forward" onClick={rewindClicked}>
+                                ⏪︎
+                                </div>
+                                <div className="time-settings-Clock">
+                                    <div>
+                                        {getYearString(time)}
+                                    </div>
+                                    <div>
+                                        {getTimeString(time)}
+                                    </div>                
+                                </div>
+                            <div className="time-settings-forward" onClick={forwarClicked}>
+                                    ⏩︎
+                            </div>
+                            </div>                   
+                        </div>
+                    </div> 
+                    <div className="time-settings-collum">
+                    <div className="time-settings-pause" onClick={pauseClicked}>
+                            ⏸︎
+                        </div>
+                        <div className="time-settings-pause" onClick={playClicked}>
+                            ▶
+                        </div>
+                        <div className="timeSettings-LiveButton" onClick={lifeClicked}>
+                                {getLED()}
+                            <div style={{paddingLeft:5}}>
+                                LIVE
+                            </div>                  
+                        </div>
+                        <div className="time-settings-pause" onClick={editClicked}>
+                        ✏️
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </React.Fragment>
     )
 }
 
