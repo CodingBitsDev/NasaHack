@@ -21,8 +21,6 @@ export default function(props){
     };
 
     let getEntrys = () => {
-        console.log(thrashData);
-
         let entrys = [];
         let index = 0;
         if(thrashData?.orbit?.currentGeodetic?.height){
@@ -43,16 +41,10 @@ export default function(props){
             index += 1;
         }
        
-        entrys[index] = {
-            id : "CAPTURED",
-            value : getYearString(new Date()),
-        };
-        index += 1;
-
         if(thrashData?.orbit?.orbit?.satrec?.alta){
             entrys[index] = {
-                id : "ALTA",
-                value : (6371*(1+thrashData?.orbit?.orbit?.satrec?.alta)).toFixed(3),
+                id : "APO",
+                value : (6371*(thrashData?.orbit?.orbit?.satrec?.alta)).toFixed(3),
                 unitA : "Km",
             };
             index += 1;
@@ -60,23 +52,30 @@ export default function(props){
 
         if(thrashData?.orbit?.orbit?.satrec?.altp){
             entrys[index] = {
-                id : "ALTP",
-                value : (6371*(1+thrashData?.orbit?.orbit?.satrec?.altp)).toFixed(3),
+                id : "PER",
+                value : (6371*(thrashData?.orbit?.orbit?.satrec?.altp)).toFixed(3),
                 unitA : "Km",
             }; 
             index += 1;
         }
 
-
-        entrys[index] = {
-            id : "FIRST SEEN",
-            value : getYearString(new Date()),
-        };
-        index += 1;
         if(thrashData?.data?.name){
             entrys[index] = {
                 id : "UID",
                 value : thrashData.data.name,
+            };
+            index += 1;
+        }
+
+        if(thrashData?.orbit?.orbit?.satrec?.epochyr && thrashData?.orbit?.orbit?.satrec?.epochdays){
+            
+            let date = new Date();
+            date.setFullYear(1999 + thrashData?.orbit?.orbit?.satrec?.epochyr);
+            date.setDate(thrashData?.orbit?.orbit?.satrec?.epochdays);
+
+            entrys[index] = {
+                id : "CAPTURED",
+                value : getYearString(date),
             };
             index += 1;
         }
@@ -92,7 +91,6 @@ export default function(props){
     }
 
     let getName = () => {
-        console.log(thrashData);
         if(!thrashData){
             return;
         }
@@ -154,7 +152,7 @@ function getUnit(unitA,unitB){
 
 function creatEntry(Name,data,unitA,unitB){
     return ( 
-        <div className="infoTable-entry-container">
+        <div key={Name} className="infoTable-entry-container">
             <div className="infoTable-entry-Name">
                 {Name + ":"}
             </div>
