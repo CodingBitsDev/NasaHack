@@ -8,7 +8,7 @@ export default function(props){
     let [show, setShow] = useState(false);
 
     useEffect(() => {
-        //setWarnings(props.scene.)
+        setShow(props.scene.collision.crash);
     }, [])
 
     let getCollisionText = () => {
