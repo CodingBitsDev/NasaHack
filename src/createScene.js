@@ -12,10 +12,10 @@ let trash;
 export async function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
 
-  scene.liveMode = true;
+	scene.liveMode = true;
 	scene.globalTime = new Date();
-  scene.playbackSpeed = 1.0;
-  scene.lastUpdate = Date.now();
+	scene.playbackSpeed = 1.0;
+	scene.lastUpdate = Date.now();
 
 	scene.update = updateScene
 	scene.canvas = canvas
@@ -33,14 +33,24 @@ export async function createScene (engine, canvas) {
 			} catch (e) { console.warn(e) }
 		});
 	}
-  scene.setPlaybackSpeed = (speed) => {
-    scene.lastUpdate = Date.now();
-    scene.playbackSpeed = speed;
+	scene.setPlaybackSpeed = (speed) => {
+		scene.lastUpdate = Date.now();
+		scene.playbackSpeed = speed;
+		scene.timeListener.forEach(listener => {
+			if (listener) try {
+				listener(scene.globalTime, true)
+			} catch (e) { console.warn(e) }
+		});
 	}
-  scene.setLiveMode = (live) => {
-    scene.lastUpdate = Date.now();
-    scene.liveMode = live;
-  }
+	scene.setLiveMode = (live) => {
+		scene.lastUpdate = Date.now();
+		scene.liveMode = live;
+		scene.timeListener.forEach(listener => {
+			if (listener) try {
+				listener(scene.globalTime, true)
+			} catch (e) { console.warn(e) }
+		});
+	}
 
 	scene.useGeometryIdsMap = true
 
@@ -92,26 +102,43 @@ export async function createScene (engine, canvas) {
   return scene;
 };
 
+var cnt = 0;
 export function updateScene() {
-	if (trash){
-		this.collision = checkCollision(trash, 0.1);
-		if (this.collision.crash) {
-			this.collision.trash1.setOrbitEnabled(true);
-			this.collision.trash2.setOrbitEnabled(true);
-			setTimeout(() => {
-				this.collision.trash1.setOrbitEnabled(false);
-				this.collision.trash2.setOrbitEnabled(false);
-			}, 5000)
+	if (trash && trash.length > 0){
+		cnt++
+		if (true) {
+			this.collision = checkCollision(trash, 1);
+			if (this.collision.crash) {
+
+				//console.log("CRASH!", this.collision.trash1.uid, this.collision.trash2.uid);
+				let t1 = this.collision.trash1;
+				let t2 = this.collision.trash2;
+				t1.setOrbitEnabled(true);
+				t2.setOrbitEnabled(true);
+
+				let c1 = (t1.cc || 0) + 1;
+				t1.cc = c1;
+				let c2 = (t2.cc || 0) + 1;
+				t2.cc = c2;
+				setTimeout(() => {
+					if (c1 === t1.cc)
+						t1.setOrbitEnabled(false);
+					
+					if (c2 === t2.cc)
+						t2.setOrbitEnabled(false);
+				}, 10000)
+			}
+			cnt = 0;
 		}
 	}
 
 	if (this.liveMode) {
-    this.setGlobalTime( new Date() );
-  } else if (this.playbackSpeed !== 0) {
-    this.setGlobalTime(new Date((+this.globalTime) + (Date.now() - this.lastUpdate) * this.playbackSpeed));
-  }
+		this.setGlobalTime( new Date() );
+	} else if (this.playbackSpeed !== 0) {
+		this.setGlobalTime(new Date((+this.globalTime) + (Date.now() - this.lastUpdate) * this.playbackSpeed));
+	}
 
-  this.lastUpdate = Date.now();
+	this.lastUpdate = Date.now();
 }
 
 function createTemplateSphereDebris(scene){
