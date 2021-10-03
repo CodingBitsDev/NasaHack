@@ -14,11 +14,13 @@ export default function TimeSettingsContainer(props){
 
     let updateSpeed = (i) => {    
         setSpeed(i);
+        props.scene.setPlaybackSpeed(i);
     }
 
     let lifeClicked = () => {
         updateSpeed(1);
         setIsLiveMode(true);
+        props.scene.setLiveMode(true);
     }
 
     let forwarClicked = () => {
@@ -28,6 +30,7 @@ export default function TimeSettingsContainer(props){
         }
         updateSpeed(newspeed);
         setIsLiveMode(false);
+        props.scene.setLiveMode(false);
         console.log("Forward Pressed new Speed: " + newspeed);
     }
     
@@ -37,6 +40,7 @@ export default function TimeSettingsContainer(props){
             newspeed = 0.25;
         }
         setIsLiveMode(false);
+        props.scene.setLiveMode(false);
         updateSpeed(newspeed);
         console.log("REWIND PRESSED new Speed: " + newspeed);
     }
@@ -44,6 +48,7 @@ export default function TimeSettingsContainer(props){
     let pauseClicked = () => {
         updateSpeed(0)
         setIsLiveMode(false);
+        props.scene.setLiveMode(false);
         console.log("PASUE PRESSED");
     }
     
@@ -90,6 +95,9 @@ export default function TimeSettingsContainer(props){
             let newTime =  document.getElementById("Date Input").valueAsDate;
        
             if(newTime != null){
+                setIsLiveMode(false);
+                props.scene.setLiveMode(false);
+                updateSpeed(1);
                 props.scene.setGlobalTime(newTime);
                 console.log("New time selected: ", newTime);
             }
