@@ -103,6 +103,12 @@ export default class Trash{
 		xSlide.setKeys(keyFrames);
 	
 		this.trashSphere.animations = [xSlide];
+		if(this.selectedSphere) {
+			const xSlide = new BABYLON.Animation("floatyboaty", "position", 1, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
+			xSlide.setKeys(keyFrames);
+			this.selectedSphere.animations = [xSlide];
+			this.scene.beginAnimation(this.selectedSphere.animations, 0, 2 , true);
+		}
 
 		this.scene.beginAnimation(this.trashSphere, 0, 2 , true);
 
