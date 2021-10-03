@@ -77,21 +77,25 @@ update() {
         //var gmst = satellite.gstime(time);
         let posVel = satellite.propagate(this.orbit.satrec, time);
         if (!posVel || !posVel.velocity || !posVel.position) continue;
-        if (i === 0) {
-            let vel = satellite.eciToEcf(posVel.velocity, gmst);
-            this.currentMovement = new BABYLON.Vector3(vel.x, vel.z, vel.y);
-            this.currentVelocity = this.currentMovement.length();
-            this.currentMovement.scaleInPlace(0.01);
-            /*this.currentMovement = (new BABYLON.Vector3(
-                this.orbit.options.points[0].x - this.orbit.options.points[1].x,
-                this.orbit.options.points[0].y - this.orbit.options.points[1].y,
-                this.orbit.options.points[0].z - this.orbit.options.points[1].z)).scale(1 / 60);*/
-        }
+    
         let pos = satellite.eciToEcf(posVel.position, gmst);
         let point = this.orbit.options.points[i];
         point.x = pos.x / 100;
         point.y = pos.z / 100;
         point.z = pos.y / 100;
+
+        if (i === 0) {
+            this.currentPosition = point;
+            let vel = satellite.eciToEcf(posVel.velocity, gmst);
+            this.currentMovement = new BABYLON.Vector3(vel.x, vel.z, vel.y);
+            this.currentVelocity = this.currentMovement.length();
+            this.currentMovement.scaleInPlace(0.01);
+            this.currentGeodetic =  satellite.eciToGeodetic(posVel.position, gmst);
+            /*this.currentMovement = (new BABYLON.Vector3(
+                this.orbit.options.points[0].x - this.orbit.options.points[1].x,
+                this.orbit.options.points[0].y - this.orbit.options.points[1].y,
+                this.orbit.options.points[0].z - this.orbit.options.points[1].z)).scale(1 / 60);*/
+        }
 
         time.setSeconds(time.getSeconds() - 60);
     }
