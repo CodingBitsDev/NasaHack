@@ -103,8 +103,6 @@ export function updateScene() {
     this.setGlobalTime(new Date((+this.globalTime) + (Date.now() - this.lastUpdate) * this.playbackSpeed));
   }
 
-  console.log(this.globalTime);
-
   this.lastUpdate = Date.now();
 }
 
