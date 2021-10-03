@@ -94,13 +94,13 @@ export async function createScene (engine, canvas) {
 
 export function updateScene() {
 	if (trash){
-		let collision = checkCollision(trash, 0.1);
-		if (collision.crash) {
-			collision.trash1.setOrbitEnabled(true);
-			collision.trash2.setOrbitEnabled(true);
+		this.collision = checkCollision(trash, 0.1);
+		if (this.collision.crash) {
+			this.collision.trash1.setOrbitEnabled(true);
+			this.collision.trash2.setOrbitEnabled(true);
 			setTimeout(() => {
-				collision.trash1.setOrbitEnabled(false);
-				collision.trash2.setOrbitEnabled(false);
+				this.collision.trash1.setOrbitEnabled(false);
+				this.collision.trash2.setOrbitEnabled(false);
 			}, 5000)
 		}
 	}
