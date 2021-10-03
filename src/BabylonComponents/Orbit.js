@@ -44,9 +44,12 @@ export default class Orbit{
     this.setEnabled(false)
 }
 
-setEnabled(enabled){
+setEnabled(enabled, colision){
     this.orbit.options.instance.setEnabled(enabled)
     this.update();
+    if (colision && enabled){
+
+    }
 }
 
 

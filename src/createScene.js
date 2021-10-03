@@ -64,11 +64,11 @@ export function createScene (engine, canvas) {
 };
 
 export function updateScene() {
-  // let collision = checkCollision(trash, 0.2);
-  // if (collision.crash) {
-  //   collision.trash1.setActive(true);
-  //   collision.trash2.setActive(true);
-  // }
+  let collision = checkCollision(trash, 0.2);
+  if (collision.crash) {
+    collision.trash1.setActive(true);
+    collision.trash2.setActive(true);
+  }
 
 	if (this.autoUpdateTime) this.globalTime = new Date();
 }
