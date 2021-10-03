@@ -9,7 +9,11 @@ export default class Trash{
 		this.tle1 = tle1;
 		this.tle2 = tle2;
 		this.uid = uid;
-		this.data = data
+
+		this.data = {
+			name: data["OBJECT_NAME"],
+			restData: data,
+		}
 
 		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(1,1,1,1),scene)
 		this.orbit.update();

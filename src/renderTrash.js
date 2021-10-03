@@ -9,6 +9,7 @@ export default async function renderTrash(scene){
     
     let result = await fetch("/spaceTrackDebri10k_clean.json") 
     let data = await result.json()
+    console.log(data)
 
     let renderMax = 10000
     let step = 1
@@ -43,6 +44,11 @@ export default async function renderTrash(scene){
         }
     }
     setInterval(update, 10);
+
+    scene.onTimeUpdated((time, update) => {
+        if (update)
+        trashList.forEach(trash => trash && trash.update());
+    })
 
     return trashList;
     // // Sample TLE
