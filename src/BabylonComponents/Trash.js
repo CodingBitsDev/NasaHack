@@ -12,7 +12,10 @@ export default class Trash{
 		this.type = type;
 
 		this.data = {
-			name: data["OBJECT_NAME"],
+			name: data.name,
+			satelite: data.satelite,
+			type: data.type,
+			date: data.date,
 			restData: data,
 		}
 

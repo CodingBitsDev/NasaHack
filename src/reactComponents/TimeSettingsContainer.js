@@ -205,7 +205,7 @@ export default function TimeSettingsContainer(props){
     )
 }
 
-function getYearString(date){
+export function getYearString(date){
     let yearString = ""
     yearString += date.getFullYear() + ".";
     if(date.getMonth() < 9){
@@ -218,7 +218,7 @@ function getYearString(date){
     return yearString;
 }
 
-function getTimeString(date){
+export function getTimeString(date){
     
     let timeString = "";
 
