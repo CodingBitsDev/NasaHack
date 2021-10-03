@@ -17,7 +17,7 @@ export default function checkCollision(trashList, crashDistance) {
         // check neighboring cells for trash
         for (let ncx = cx - 1; ncx < cx + 1; ncx++) {
             for (let ncy = cy - 1; ncy < cy + 1; ncy++) {
-                for (let ncz = cx - 1; ncz < cz + 1; ncz++) {
+                for (let ncz = cz - 1; ncz < cz + 1; ncz++) {
                     if (crashCells[ncx] && crashCells[ncx][ncy] && crashCells[ncx][ncy][ncz]) {
 
                         // check all trash in this cell

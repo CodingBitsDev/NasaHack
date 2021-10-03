@@ -109,7 +109,7 @@ export function updateScene() {
 	if (trash && trash.length > 0){
 		cnt++
 		if (true) {
-			this.collision = checkCollision(trash, 1);
+			this.collision = checkCollision(trash, 0.1);
 			if (this.collision.crash) {
 
 				//console.log("CRASH!", this.collision.trash1.uid, this.collision.trash2.uid);
@@ -128,7 +128,7 @@ export function updateScene() {
 					
 					if (c2 === t2.cc)
 						t2.setOrbitEnabled(false);
-				}, 10000)
+				}, 15000)
 			}
 			cnt = 0;
 		}
