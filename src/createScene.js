@@ -9,7 +9,7 @@ import { setActionManager } from './setActionManager';
 
 let trash;
 
-export function createScene (engine, canvas) {
+export async function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
 
   scene.liveMode = true;
@@ -84,7 +84,7 @@ export function createScene (engine, canvas) {
 
 	const earth = new Earth(scene);
 
-  trash = renderTrash(scene);
+  trash = await renderTrash(scene);
 
   scene.clearColor = new BABYLON.Color3(0, 0, 0);
 
@@ -92,11 +92,13 @@ export function createScene (engine, canvas) {
 };
 
 export function updateScene() {
-  let collision = checkCollision(trash, 0.2);
-  if (collision.crash) {
-    collision.trash1.setActive(true);
-    collision.trash2.setActive(true);
-  }
+	if (trash){
+		let collision = checkCollision(trash, 0.2);
+		if (collision.crash) {
+			collision.trash1.setActive(true);
+			collision.trash2.setActive(true);
+		}
+	}
 
 	if (this.liveMode) {
     this.setGlobalTime( new Date() );
