@@ -72,7 +72,6 @@ export default class Trash{
 	}
 
 	update(time){
-		console.log("update")
 		this.orbit.update(time)
 		this.trashSphere.position = this.orbit.currentPosition;
 		if (this.selectedSphere) this.selectedSphere.position = this.orbit.currentPosition;

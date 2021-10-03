@@ -85,7 +85,7 @@ export function updateScene() {
     collision.trash2.setActive(true);
   }
 
-	if (this.autoUpdateTime) this.globalTime = new Date();
+	if (this.autoUpdateTime) this.setGlobalTime( new Date() );
 }
 
 function createTemplateSphere(scene){
