@@ -15,6 +15,7 @@ export default class Trash{
 			name: data.name,
 			satelite: data.satelite,
 			type: data.type,
+			date: data.date,
 			restData: data,
 		}
 
