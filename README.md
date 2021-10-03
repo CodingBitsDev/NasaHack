@@ -1,4 +1,13 @@
 # Space Garbage UI
+
+## What is this
+A tool to Visualy display space trash and satelites and their orbit in realtime.
+This also includes a simple Colision detection.
+
+The data are based of Celestrack and are currently set staticly but can be loaded dynamicaly. (See [NasaHackBackend](https://github.com/Renji3/NasaHackBackend))
+
+## Hackathon
+This tool was created in almost 2 days during the [Space App Chalange](https://www.spaceappschallenge.org/).
 ## Orbital Position and Trail
 The current postition of a garbage object is calculated with the satellite.js library, based on the TLE data and the set time.
 As the earth in our UI is stationary, the provided ECI coordinates are converted into ECF coordinates.
@@ -9,3 +18,9 @@ The naive approach to always calculate the distance between each object is highl
 Because of this we split the objects into cells in a uniform grid based on the ECS coordinate components.
 We only calculate object distances between objects in the same cell or neighboring cells.
 If we assume an equal distribution of objects over the globe and we scale the grid proportional to the amount of objects, we can effectively reduce the mean number of objects per cell to be constant and thereby reduce the asymptotic runtime to O(n).
+
+## Visualization
+The Visualization is used via BabylonJS. A open source 3D rendering engine for the Web.
+
+## React
+The UI was created via with the use of React JS.
