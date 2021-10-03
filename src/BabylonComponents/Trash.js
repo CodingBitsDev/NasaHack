@@ -87,6 +87,7 @@ export default class Trash{
 	update(time){
 		this.orbit.update(time)
 		this.trashSphere.position = this.orbit.currentPosition;
+		if (this.selectedSphere) this.selectedSphere.position = this.orbit.currentPosition;
 
 		
 		const xSlide = new BABYLON.Animation("floatyboaty", "position", 1, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
