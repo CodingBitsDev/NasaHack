@@ -9,7 +9,7 @@ import { setActionManager } from './setActionManager';
 
 let trash;
 
-export function createScene (engine, canvas) {
+export async function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
 
   scene.liveMode = true;
@@ -72,18 +72,20 @@ export function createScene (engine, canvas) {
 	// const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, BABYLON.Vector3.Zero(), scene);
 	const camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI/2, 1.1, 190, BABYLON.Vector3.Zero(), scene);
   camera.attachControl(canvas, true);
+	camera.lowerRadiusLimit = 100
 
   // const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
 	// light.intensity = 0.7;
 	// light.diffuse = new BABYLON.Vector3(3,3,3)
 	setActionManager(scene);
 
-	createTemplateSphere(scene);
+	createTemplateSphereSatelite(scene);
+	createTemplateSphereDebris(scene);
 	createTemplateSphereHiglighted(scene);
 
 	const earth = new Earth(scene);
 
-  trash = renderTrash(scene);
+  trash = await renderTrash(scene);
 
   scene.clearColor = new BABYLON.Color3(0, 0, 0);
 
@@ -91,11 +93,17 @@ export function createScene (engine, canvas) {
 };
 
 export function updateScene() {
-  let collision = checkCollision(trash, 0.2);
-  if (collision.crash) {
-    collision.trash1.setActive(true);
-    collision.trash2.setActive(true);
-  }
+	if (trash){
+		let collision = checkCollision(trash, 0.1);
+		if (collision.crash) {
+			collision.trash1.setOrbitEnabled(true);
+			collision.trash2.setOrbitEnabled(true);
+			setTimeout(() => {
+				collision.trash1.setOrbitEnabled(false);
+				collision.trash2.setOrbitEnabled(false);
+			}, 5000)
+		}
+	}
 
 	if (this.liveMode) {
     this.setGlobalTime( new Date() );
@@ -106,13 +114,22 @@ export function updateScene() {
   this.lastUpdate = Date.now();
 }
 
-function createTemplateSphere(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 3}, scene);
+function createTemplateSphereDebris(scene){
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereDebris", {diameter: 0.5, segments: 3}, scene);
 		sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);    				
-		sphere.material.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
+		sphere.material.emissiveColor = new BABYLON.Vector3(1,0.5,0)
 		sphere.material.freeze();
 		sphere.isVisible = false;
-		scene.templateSphere = sphere
+		scene.templateSphereDebris = sphere
+}
+
+function createTemplateSphereSatelite(scene){
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereSatelite", {diameter: 0.5, segments: 3}, scene);
+		sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);    				
+		sphere.material.emissiveColor = new BABYLON.Vector3(0.6,0,0.4)
+		sphere.material.freeze();
+		sphere.isVisible = false;
+		scene.templateSphereSatelite = sphere
 }
 
 function createTemplateSphereHiglighted(scene){

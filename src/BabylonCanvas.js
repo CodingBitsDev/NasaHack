@@ -9,11 +9,11 @@ window['BABYLON'] = BABYLON;
 export default function BabylonCanvas({ onSceneReady }){
 	let canvasRef = useRef(null)
 
-	useEffect(() => {
+	useEffect(async () => {
 		if (!canvasRef.current) return;
 		let canvas = canvasRef.current
 		const engine = new BABYLON.Engine(canvas, true); 
-		const scene = createScene(engine, canvas); 
+		const scene = await createScene(engine, canvas); 
 		if (onSceneReady) onSceneReady(scene)
 
 		engine.runRenderLoop(function () {

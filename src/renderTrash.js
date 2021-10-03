@@ -4,14 +4,40 @@ import Trash from './BabylonComponents/Trash';
 // import data from './data/spaceTrackDataDebriOnly.json';
 // import data from "./data/spaceTrackDebri10k_clean.json";
 
-export default async function renderTrash(scene){
-    let trashList = [];
-    
+async function getCelestrakData(){
+    let sateliteResult = await fetch("/satelite_data_CelesTrak.json") 
+    let sateliteData = await sateliteResult.json()
+
+    let trashResult = await fetch("/debris_data_CelesTrak.json") 
+    let trashData = await trashResult.json()
+
+    return {
+        debris: Object.values( trashData ).map(data => ({...data, type: "debris"})),
+        satelites: Object.values( sateliteData ).map(data => ({...data, type: "satelite"})),
+    }
+}
+
+async function getSpaceTrack(){
     let result = await fetch("/spaceTrackDebri10k_clean.json") 
     let data = await result.json()
+    return data.map(el => ({
+        ...el,
+        type: "debris",
+        name: el["TLE_LINE0"],
+        tle1: el["TLE_LINE1"],
+        tle2: el["TLE_LINE2"],
+    }))
+}
+
+export default async function renderTrash(scene){
+    let trashList = [];
 
     let renderMax = 10000
     let step = 1
+
+    let celestrackdata = await getCelestrakData()
+    let data = [...celestrackdata.debris, ...celestrackdata.satelites];
+    // console.log("### data", data[0])
 
     for (let index = 0; index < data.length; index++) {
         let trash = data[index]
@@ -19,9 +45,10 @@ export default async function renderTrash(scene){
         setTimeout( () => {
             let newTrash = new Trash(
                 scene,
-                trash["TLE_LINE1"],
-                trash["TLE_LINE2"],
-                trash["TLE_LINE0"],
+                trash.tle1,
+                trash.tle2,
+                trash.name,
+                trash.type,
                 trash,
             );
             trashList.push(newTrash)

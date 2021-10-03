@@ -45,7 +45,6 @@ export default function TimeSettingsContainer(props){
         updateSpeed(newspeed);
         setIsLiveMode(false);
         props.scene.setLiveMode(false);
-        console.log("Forward Pressed new Speed: " + newspeed);
     }
     
     let rewindClicked = () => {
@@ -65,24 +64,20 @@ export default function TimeSettingsContainer(props){
         setIsLiveMode(false);
         props.scene.setLiveMode(false);
         updateSpeed(newspeed);
-        console.log("REWIND PRESSED new Speed: " + newspeed);
     }
     
     let pauseClicked = () => {
         updateSpeed(0)
         setIsLiveMode(false);
         props.scene.setLiveMode(false);
-        console.log("PASUE PRESSED");
     }
     
     let editClicked = () => {
         setShowPopUp(true);
-        console.log("EDIT PRESSED popUp ", showPopUp);
     }
     
     let playClicked = () => {
         updateSpeed(1)
-        console.log("Play PRESSED");
     }
 
     let getLED = () => {
@@ -126,7 +121,6 @@ export default function TimeSettingsContainer(props){
                 props.scene.setLiveMode(false);
                 updateSpeed(1);
                 props.scene.setGlobalTime(newTime, true);
-                console.log("New time selected: ", newTime);
             }
             setShowPopUp(false);
         }

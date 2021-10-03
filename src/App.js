@@ -4,6 +4,7 @@ import BabylonCanvas from './BabylonCanvas';
 import TimeSettingsContainer from './reactComponents/TimeSettingsContainer';
 import SettingsToolBar from './reactComponents/SettingsToolBar';
 import InfoTable from './reactComponents/InfoTable';
+import Legend from './reactComponents/Legend';
 
 import("@babylonjs/core/Debug/debugLayer")
 import('@babylonjs/inspector')
@@ -17,6 +18,7 @@ function App() {
       <BabylonCanvas onSceneReady={setScene}/>
       {scene && <SettingsToolBar scene={scene} />}
       {scene && <InfoTable scene={scene} />}
+      <Legend />
     </div>
   );
 }

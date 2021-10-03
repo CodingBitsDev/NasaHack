@@ -26,6 +26,10 @@ export default class Orbit{
     }
 
     this.currentPosition = points[0];
+    this.currentVelocity = 0;
+    this.currentMovement = new BABYLON.Vector3(0, 0, 0);
+    this.currentHeight = 0;
+    this.currentCoordinates = new BABYLON.Vector2();
   
     const options = {
         points, 
@@ -69,9 +73,14 @@ update() {
     var time = new Date(this.scene.globalTime); 
     var gmst = satellite.gstime(time);
     for (let i = 0; i < (this.isEnabled ? length : 1); i++){
-        let pos = satellite.propagate(this.orbit.satrec, time)?.position;
-        if (!pos) continue;
-        pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
+        let posVel = satellite.propagate(this.orbit.satrec, time);
+        if (!posVel || !posVel.velocity || !posVel.position) continue;
+        if (i === 0) {
+           this.currentMovement = new BABYLON.Vector3(posVel.velocity.x, posVel.velocity.z, posVel.velocity.y);
+           this.currentVelocity = this.currentMovement.length();
+           this.currentMovement.scaleInPlace(0.01);
+        }
+        let pos = satellite.eciToEcf(posVel.position, gmst);
         let point = this.orbit.options.points[i];
         point.x = pos.x / 100;
         point.y = pos.z / 100;
