@@ -84,7 +84,7 @@ function createTemplateSphere(scene){
 }
 
 function createTemplateSphereHiglighted(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("selectSphere", {diameter: 0.51, segments: 3}, scene);
+		let sphere = BABYLON.MeshBuilder.CreateSphere("selectSphere", {diameter: 0.6, segments: 3}, scene);
 		sphere.material = new BABYLON.StandardMaterial("sphereMatGreen", scene);    				
 		sphere.material.emissiveColor = new BABYLON.Vector3(0,1,0)
 		sphere.material.freeze();

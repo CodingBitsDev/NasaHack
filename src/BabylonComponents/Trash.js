@@ -38,8 +38,8 @@ export default class Trash{
 			this.selectedSphere.setEnabled(true)
 			this.selectedSphere.position = this.orbit.currentPosition;
 		} else {
-			this.selectedSphere.scaling = new BABYLON.Vector3(1,1,1)
 			if (this.selectedSphere.trashSphere == this.trashSphere){
+				this.selectedSphere.scaling = new BABYLON.Vector3(1,1,1)
 				this.selectedSphere.setEnabled(false)
 			}
 			this.selectedSphere = null;
