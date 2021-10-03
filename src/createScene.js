@@ -95,8 +95,12 @@ export function updateScene() {
 	if (trash){
 		let collision = checkCollision(trash, 0.2);
 		if (collision.crash) {
-			collision.trash1.setActive(true);
-			collision.trash2.setActive(true);
+			collision.trash1.setOrbitEnabled(true);
+			collision.trash2.setOrbitEnabled(true);
+			setTimeout(() => {
+				collision.trash1.setOrbitEnabled(false);
+				collision.trash2.setOrbitEnabled(false);
+			}, 5000)
 		}
 	}
 
