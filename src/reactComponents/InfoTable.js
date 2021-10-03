@@ -2,13 +2,13 @@ import React, {useState,useEffect,useRef} from "react";
 import {getTimeString,getYearString,} from "./TimeSettingsContainer";
 
 export default function(props){
-    let [selectedData, setSelectedData] = useState({});
+    let [thrashData, setThrashData] = useState({});
     let [show, setShow] = useState(false);
 
     useEffect(() => {
         props.scene.canvas.addEventListener("trash_selected", (e) => {
-            let data = e.detail.data
-            setSelectedData(data);
+            let data = e.detail
+            setThrashData(data);
             setShow(true);
        })
        props.scene.canvas.addEventListener("trash_unselected", (e) => {
@@ -16,50 +16,66 @@ export default function(props){
         })
     }, [])
    
-    let getEntrys = () => {
-        console.log(selectedData);
+    let infoPanelClicked = () => {
+        setShow(false);
+    };
 
+    let getEntrys = () => {
+        console.log(thrashData);
         let entrys = [];
         let index = 0;
-        entrys[index] = {
-            id : "ALT",
-            value : 150,
-            unitA : "Km",
-        };
-        index += 1;
-        entrys[index] = {
-            id : "SPEED",
-            value : 80.25,
-            unitA : "Km",
-            unitB : "s"
-        };
-        index += 1;
+        if(thrashData?.orbit?.currentGeodetic?.height){
+            entrys[index] = {
+                id : "ALT",
+                value : thrashData?.orbit?.currentGeodetic?.height.toFixed(3),
+                unitA : "Km",
+            };
+            index += 1;
+        }
+        if(thrashData?.orbit?.currentVelocity){
+            entrys[index] = {
+                id : "SPEED",
+                value : thrashData?.orbit?.currentVelocity.toFixed(3),
+                unitA : "Km",
+                unitB : "s"
+            };
+            index += 1;
+        }
+       
         entrys[index] = {
             id : "CAPTURED",
             value : getYearString(new Date()),
         };
         index += 1;
-        entrys[index] = {
-            id : "APO",
-            value : 250000,
-            unitA : "Km",
-        };
-        index += 1;
-        entrys[index] = {
-            id : "PER",
-            value : 150000,
-            unitA : "Km",
-        }; 
-        index += 1;
+
+        if(thrashData?.orbit?.orbit?.satrec?.alta){
+            entrys[index] = {
+                id : "ALTA",
+                value : (6.371*(1+thrashData?.orbit?.orbit?.satrec?.alta)).toFixed(3),
+                unitA : "Km",
+            };
+            index += 1;
+        }
+
+        if(thrashData?.orbit?.orbit?.satrec?.altp){
+            entrys[index] = {
+                id : "ALTP",
+                value : (6.371*(1+thrashData?.orbit?.orbit?.satrec?.altp)).toFixed(3),
+                unitA : "Km",
+            }; 
+            index += 1;
+        }
+
+
         entrys[index] = {
             id : "FIRST SEEN",
             value : getYearString(new Date()),
         };
         index += 1;
-        if(selectedData && selectedData.Name){
+        if(thrashData?.data?.name){
             entrys[index] = {
                 id : "UID",
-                value : selectedData.Name,
+                value : thrashData.data.name,
             };
             index += 1;
         }
@@ -75,21 +91,21 @@ export default function(props){
     }
 
     let getName = () => {
-        console.log(selectedData);
-        if(!selectedData){
+        console.log(thrashData);
+        if(!thrashData){
             return;
         }
-        if(selectedData.satelite != undefined){
-            return selectedData.satelite;
-        }else if(selectedData?.data?.resData?.satelite){
-            return selectedData.data.resData.satelite;
+        if(thrashData?.data?.satelite != undefined){
+            return thrashData.data.satelite;
+        }else if(thrashData?.data?.resData?.satelite){
+            return thrashData.data.resData.satelite;
         }
     }
 
     let infoTable = () => {
         if(show){
             return (
-                <div className = "infoTable-container">
+                <div className = "infoTable-container" onClick={infoPanelClicked}>
                     <div className = "infoTable-Header">
                         {getName()}
                     </div>
@@ -109,25 +125,26 @@ export default function(props){
     )
 }
 
+
 function getUnit(unitA,unitB){
     if(unitB !== undefined){
-    return (
-        <div className="infoTable-entry-unit">
-            <div className="infoTable-entry-unitA">
-                {unitA} 
-            </div>
-            <div className="infoTable-entry-unitB">
-                {unitB}
-            </div>
-        </div>       
-    );
+        return (
+            <div className="infoTable-entry-unit">
+                <div className="infoTable-entry-unitA">
+                    {unitA} 
+                </div>
+                <div className="infoTable-entry-unitB">
+                    {unitB}
+                </div>
+            </div>       
+        );
     }else if(unitA !== undefined){
         return (
-        <div className="infoTable-entry-unit">
-            <div className="infoTable-entry-unitA-S">
-                {unitA} 
+            <div className="infoTable-entry-unit">
+                <div className="infoTable-entry-unitA-S">
+                    {unitA} 
+                </div>
             </div>
-        </div>
         );    
     }
 
