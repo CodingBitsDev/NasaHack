@@ -15,11 +15,13 @@ export function setActionManager(scene){
 
 			newSelected.setSelected(true)
 			if (lastSelected){
+				if (lastSelected.trashParent) scene.canvas.dispatchEvent(new CustomEvent("trash_unselected", { detail: lastSelected.trashParent }));
 				lastSelected.setSelected(false);
 			}
 			lastSelected = newSelected;
 		} else if (newSelected == lastSelected){
 			lastSelected.setSelected(false);
+			if (lastSelected.trashParent) scene.canvas.dispatchEvent(new CustomEvent("trash_unselected", { detail: lastSelected.trashParent }));
 			lastSelected = null;
 		}
 
