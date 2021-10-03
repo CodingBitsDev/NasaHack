@@ -58,7 +58,7 @@ export default async function renderTrash(scene){
 
     let currentStep = 0;
     let update = () => {
-        let interval = Math.ceil( trashList.length / 20 )
+        let interval = Math.ceil( trashList.length / 200 )
         if (trashList.length > currentStep){
             let subList = trashList.slice(currentStep, currentStep + interval)
             currentStep = currentStep + interval;
@@ -69,7 +69,7 @@ export default async function renderTrash(scene){
             currentStep = 0;
         }
     }
-    setInterval(update, 100);
+    setInterval(update, 10);
 
     scene.onTimeUpdated((time, update) => {
         if (update)
