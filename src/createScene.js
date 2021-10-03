@@ -15,6 +15,20 @@ export function createScene (engine, canvas) {
 	scene.globalTime = new Date();
 	scene.update = updateScene
 	scene.canvas = canvas
+	scene.timeListener = new Set();
+	scene.onTimeUpdated = (listener) => {
+		scene.timeListener.add(listener)
+		listener(scene.globalTime);
+	};
+	scene.setGlobalTime = (time) => {
+		scene.globalTime = time
+		scene.timeListener.forEach(listener => {
+			if (listener) try {
+				listener(scene.globalTime)
+			} catch (e) { console.warn(e) }
+		});
+	}
+	
 
 	scene.useGeometryIdsMap = true
 
