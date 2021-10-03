@@ -22,14 +22,14 @@ export function createScene (engine, canvas) {
 	scene.timeListener = new Set();
 	scene.onTimeUpdated = (listener) => {
 		scene.timeListener.add(listener)
-		listener(scene.globalTime);
+		listener(scene.globalTime, false);
 	};
-	scene.setGlobalTime = (time) => {
+	scene.setGlobalTime = (time, update) => {
     scene.lastUpdate = new Date();
 		scene.globalTime = time
 		scene.timeListener.forEach(listener => {
 			if (listener) try {
-				listener(scene.globalTime)
+				listener(scene.globalTime, update)
 			} catch (e) { console.warn(e) }
 		});
 	}

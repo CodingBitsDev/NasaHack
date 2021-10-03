@@ -45,6 +45,11 @@ export default async function renderTrash(scene){
     }
     setInterval(update, 10);
 
+    scene.onTimeUpdated((time, update) => {
+        if (update)
+        trashList.forEach(trash => trash && trash.update());
+    })
+
     return trashList;
     // // Sample TLE
     // var tleLine1 = '1 25544U 98067A   21275.52277778  .00006056  00000-0  11838-3 0  9993',
