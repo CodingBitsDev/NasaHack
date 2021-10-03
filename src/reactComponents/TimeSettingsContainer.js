@@ -28,7 +28,17 @@ export default function TimeSettingsContainer(props){
     }
 
     let forwarClicked = () => {
-        let newspeed = speed * 2;
+        let newspeed = speed;
+
+        if(newspeed === -0.25){
+            newspeed = -newspeed;
+        }
+        else if(newspeed > 0){
+            newspeed = newspeed * 2;
+        }else{
+            newspeed = newspeed/2;
+        }
+
         if(newspeed > 128){
             newspeed = 128;
         }
@@ -39,9 +49,18 @@ export default function TimeSettingsContainer(props){
     }
     
     let rewindClicked = () => {
-        let newspeed = speed/2;
-        if(newspeed < 0.25){
-            newspeed = 0.25;
+        let newspeed = speed;
+
+        if(newspeed === 0.25){
+            newspeed = -newspeed;
+        }else if(newspeed > 0){
+            newspeed = newspeed / 2;
+        }else{
+            newspeed = newspeed*2;
+        }
+
+        if(newspeed < -128){
+            newspeed = -128;
         }
         setIsLiveMode(false);
         props.scene.setLiveMode(false);
@@ -82,7 +101,12 @@ export default function TimeSettingsContainer(props){
     let getStatus = () => {
         console.log("STATUS: ", speed);
         if(speed != 0){
-            return "X" + speed;
+            if(speed < 0){
+                return "-X" +  -1*speed;
+            }else{
+                return "X" + speed;
+            }
+           
         }
         if(speed == 0){
             return "pause";
@@ -102,7 +126,7 @@ export default function TimeSettingsContainer(props){
                 setIsLiveMode(false);
                 props.scene.setLiveMode(false);
                 updateSpeed(1);
-                props.scene.setGlobalTime(newTime);
+                props.scene.setGlobalTime(newTime, true);
                 console.log("New time selected: ", newTime);
             }
             setShowPopUp(false);
