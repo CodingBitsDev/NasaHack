@@ -37,7 +37,7 @@ export default async function renderTrash(scene){
 
     let celestrackdata = await getCelestrakData()
     let data = [...celestrackdata.debris, ...celestrackdata.satelites];
-    console.log("### data", data[0])
+    // console.log("### data", data[0])
 
     for (let index = 0; index < data.length; index++) {
         let trash = data[index]

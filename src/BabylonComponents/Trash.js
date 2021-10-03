@@ -22,7 +22,6 @@ export default class Trash{
 			this.trashSphere = scene.templateSphereDebris.createInstance("instance" + uid);
 		}
 		let color = this.trashSphere.material.emissiveColor
-		console.log(color)
 		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(color.x,color.y,color.z,1),scene)
 		this.orbit.update();
 
