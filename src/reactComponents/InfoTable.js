@@ -22,6 +22,7 @@ export default function(props){
 
     let getEntrys = () => {
         console.log(thrashData);
+
         let entrys = [];
         let index = 0;
         if(thrashData?.orbit?.currentGeodetic?.height){
@@ -51,7 +52,7 @@ export default function(props){
         if(thrashData?.orbit?.orbit?.satrec?.alta){
             entrys[index] = {
                 id : "ALTA",
-                value : (6.371*(1+thrashData?.orbit?.orbit?.satrec?.alta)).toFixed(3),
+                value : (6371*(1+thrashData?.orbit?.orbit?.satrec?.alta)).toFixed(3),
                 unitA : "Km",
             };
             index += 1;
@@ -60,7 +61,7 @@ export default function(props){
         if(thrashData?.orbit?.orbit?.satrec?.altp){
             entrys[index] = {
                 id : "ALTP",
-                value : (6.371*(1+thrashData?.orbit?.orbit?.satrec?.altp)).toFixed(3),
+                value : (6371*(1+thrashData?.orbit?.orbit?.satrec?.altp)).toFixed(3),
                 unitA : "Km",
             }; 
             index += 1;
