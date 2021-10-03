@@ -11,8 +11,12 @@ let trash;
 
 export function createScene (engine, canvas) {
   let scene = new BABYLON.Scene(engine);
-	scene.autoUpdateTime = true;
+
+  scene.liveMode = true;
 	scene.globalTime = new Date();
+  scene.playbackSpeed = 1.0;
+  scene.lastUpdate = Date.now();
+
 	scene.update = updateScene
 	scene.canvas = canvas
 	scene.timeListener = new Set();
@@ -21,6 +25,7 @@ export function createScene (engine, canvas) {
 		listener(scene.globalTime);
 	};
 	scene.setGlobalTime = (time) => {
+    scene.lastUpdate = new Date();
 		scene.globalTime = time
 		scene.timeListener.forEach(listener => {
 			if (listener) try {
@@ -28,7 +33,14 @@ export function createScene (engine, canvas) {
 			} catch (e) { console.warn(e) }
 		});
 	}
-	
+  scene.setPlaybackSpeed = (speed) => {
+    scene.lastUpdate = Date.now();
+    scene.playbackSpeed = speed;
+	}
+  scene.setLiveMode = (live) => {
+    scene.lastUpdate = Date.now();
+    scene.liveMode = live;
+  }
 
 	scene.useGeometryIdsMap = true
 
@@ -85,7 +97,15 @@ export function updateScene() {
     collision.trash2.setActive(true);
   }
 
-	if (this.autoUpdateTime) this.setGlobalTime( new Date() );
+	if (this.liveMode) {
+    this.setGlobalTime( new Date() );
+  } else if (this.playbackSpeed !== 0) {
+    this.setGlobalTime(new Date((+this.globalTime) + (Date.now() - this.lastUpdate) * this.playbackSpeed));
+  }
+
+  console.log(this.globalTime);
+
+  this.lastUpdate = Date.now();
 }
 
 function createTemplateSphere(scene){
