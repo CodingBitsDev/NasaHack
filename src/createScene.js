@@ -108,7 +108,7 @@ export function updateScene() {
 }
 
 function createTemplateSphereDebris(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereDebris", {diameter: 0.5, segments: 3}, scene);
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereDebris", {diameter: 0.5, segments: 1}, scene);
 		sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);    				
 		sphere.material.emissiveColor = new BABYLON.Vector3(1,0.5,0)
 		sphere.material.freeze();
@@ -117,7 +117,7 @@ function createTemplateSphereDebris(scene){
 }
 
 function createTemplateSphereSatelite(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereSatelite", {diameter: 0.5, segments: 3}, scene);
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereSatelite", {diameter: 0.5, segments: 1}, scene);
 		sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);    				
 		sphere.material.emissiveColor = new BABYLON.Vector3(0.6,0,0.4)
 		sphere.material.freeze();
@@ -126,7 +126,7 @@ function createTemplateSphereSatelite(scene){
 }
 
 function createTemplateSphereHiglighted(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("selectSphere", {diameter: 0.6, segments: 3}, scene);
+		let sphere = BABYLON.MeshBuilder.CreateSphere("selectSphere", {diameter: 0.6, segments: 5}, scene);
 		sphere.material = new BABYLON.StandardMaterial("sphereMatGreen", scene);    				
 		sphere.material.emissiveColor = new BABYLON.Vector3(0,1,0)
 		sphere.material.freeze();
