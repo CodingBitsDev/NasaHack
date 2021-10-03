@@ -78,7 +78,8 @@ export function createScene (engine, canvas) {
 	// light.diffuse = new BABYLON.Vector3(3,3,3)
 	setActionManager(scene);
 
-	createTemplateSphere(scene);
+	createTemplateSphereSatelite(scene);
+	createTemplateSphereDebris(scene);
 	createTemplateSphereHiglighted(scene);
 
 	const earth = new Earth(scene);
@@ -106,13 +107,22 @@ export function updateScene() {
   this.lastUpdate = Date.now();
 }
 
-function createTemplateSphere(scene){
-		let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5, segments: 3}, scene);
+function createTemplateSphereDebris(scene){
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereDebris", {diameter: 0.5, segments: 3}, scene);
 		sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);    				
-		sphere.material.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
+		sphere.material.emissiveColor = new BABYLON.Vector3(1,0.5,0)
 		sphere.material.freeze();
 		sphere.isVisible = false;
-		scene.templateSphere = sphere
+		scene.templateSphereDebris = sphere
+}
+
+function createTemplateSphereSatelite(scene){
+		let sphere = BABYLON.MeshBuilder.CreateSphere("sphereSatelite", {diameter: 0.5, segments: 3}, scene);
+		sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);    				
+		sphere.material.emissiveColor = new BABYLON.Vector3(0.6,0,0.4)
+		sphere.material.freeze();
+		sphere.isVisible = false;
+		scene.templateSphereSatelite = sphere
 }
 
 function createTemplateSphereHiglighted(scene){
