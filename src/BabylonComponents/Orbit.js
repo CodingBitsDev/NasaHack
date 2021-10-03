@@ -69,7 +69,9 @@ update() {
     var time = new Date(this.scene.globalTime); 
     var gmst = satellite.gstime(time);
     for (let i = 0; i < (this.isEnabled ? length : 1); i++){
-        let pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
+        let pos = satellite.propagate(this.orbit.satrec, time)?.position;
+        if (!pos) continue;
+        pos = satellite.eciToEcf(satellite.propagate(this.orbit.satrec, time).position, gmst);
         let point = this.orbit.options.points[i];
         point.x = pos.x / 100;
         point.y = pos.z / 100;
