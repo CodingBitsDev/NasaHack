@@ -13,6 +13,8 @@ export default class Trash{
 
 		this.data = {
 			name: data.name,
+			satelite: data.satelite,
+			type: data.type,
 			restData: data,
 		}
 
