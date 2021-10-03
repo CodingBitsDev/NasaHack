@@ -6,8 +6,18 @@ This also includes a simple Colision detection.
 
 The data are based of Celestrack and are currently set staticly but can be loaded dynamicaly. (See [NasaHackBackend](https://github.com/Renji3/NasaHackBackend))
 
+## How to run
+
+To run this you have to first clone the Project, enter the folder and run
+
+```
+npm install
+npm run start
+```
+
 ## Hackathon
 This tool was created in almost 2 days during the [Space App Chalange](https://www.spaceappschallenge.org/).
+
 ## Orbital Position and Trail
 The current postition of a garbage object is calculated with the satellite.js library, based on the TLE data and the set time.
 As the earth in our UI is stationary, the provided ECI coordinates are converted into ECF coordinates.
