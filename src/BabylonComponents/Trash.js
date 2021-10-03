@@ -3,7 +3,7 @@ import * as GUI from '@babylonjs/gui';
 import Orbit from './Orbit';
 
 export default class Trash{
-	constructor(scene, tle1, tle2, uid, type, data){
+	constructor(scene, tle1, tle2, uid, type, data, onLoaded){
 		this.scene = scene;
 
 		this.tle1 = tle1;
@@ -31,7 +31,7 @@ export default class Trash{
 		this.trashSphere.position = this.orbit.currentPosition;
 		this.trashSphere.active = false;
 
-    	this.trashSphere.actionManager = scene.mainActionManager;
+		this.trashSphere.actionManager = scene.mainActionManager;
 		this.trashSphere.setOrbitEnabled = this.setOrbitEnabled.bind(this);
 		this.trashSphere.setActive = this.setActive.bind(this);
 		this.trashSphere.setSelected = this.setSelected.bind(this);
@@ -40,6 +40,7 @@ export default class Trash{
 		this.trashSphere.trashParent = this;
 
 		this.selectedSphere = null;
+		if (onLoaded) onLoaded();
 	}
 
 	setSelected(selected){
@@ -103,6 +104,12 @@ export default class Trash{
 		xSlide.setKeys(keyFrames);
 	
 		this.trashSphere.animations = [xSlide];
+		if(this.selectedSphere) {
+			const xSlide = new BABYLON.Animation("floatyboaty", "position", 1, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
+			xSlide.setKeys(keyFrames);
+			this.selectedSphere.animations = [xSlide];
+			this.scene.beginAnimation(this.selectedSphere.animations, 0, 2 , true);
+		}
 
 		this.scene.beginAnimation(this.trashSphere, 0, 2 , true);
 

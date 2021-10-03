@@ -2,13 +2,16 @@ import React, {useState,useEffect,useRef} from "react";
 
 import { FaForward } from '@react-icons/all-files/fa/FaForward';
 import { FaBackward } from '@react-icons/all-files/fa/FaBackward';
-
+import {ImShrink} from '@react-icons/all-files/im/ImShrink';
+import {BsFillPlayFill} from '@react-icons/all-files/bs/BsFillPlayFill';
+import {AiOutlinePause} from '@react-icons/all-files/ai/AiOutlinePause';
 
 export default function TimeSettingsContainer(props){
     let [time, setTime] = useState(props.scene.globalTime);
     let [isLiveMode, setIsLiveMode] = useState(true);
     let [speed, setSpeed] = useState(1);
     let [showPopUp,setShowPopUp] = useState(false);
+    let [miniMize,setMiniMize] = useState(true);
 
     useEffect(() => {
         props.scene.onTimeUpdated((time) => {
@@ -20,6 +23,11 @@ export default function TimeSettingsContainer(props){
         setSpeed(i);
         props.scene.setPlaybackSpeed(i);
     }
+
+    let miniMizeClicked = () => {
+        setMiniMize(!miniMize);
+        setShowPopUp(false);
+    };
 
     let lifeClicked = () => {
         updateSpeed(1);
@@ -129,7 +137,7 @@ export default function TimeSettingsContainer(props){
             return (
                 <div className="time-Settings-Enter-Date-Popup">
                     <div style={{flexDirection: "column", display: "flex"}}>  
-                        <div style={{flexDirection: "row-reverse", display: "flex"}}>
+                        <div style={{flexDirection: "row-reverse", display: "flex", marginBottom: "4%"}}>
                              <div className="time-Settings-Enter-Date-Popup-CloseButton" onClick={closeClicked}>
                                 X
                             </div> 
@@ -137,7 +145,7 @@ export default function TimeSettingsContainer(props){
                                 Enter Date
                             </div>
                         </div>    
-                        <div style={{marginLeft:"1em",marginRight: "1em"}}>
+                        <div style={{marginLeft:"1rem",marginRight: "1rem"}}>
                           <input id="Date Input" className="time-Settings-Enter-Date-Popup-TextInput-Field" type="date"/>                                     
                         </div>
                         <div style={{display:"flex", justifyContent: "center", alignItems:"center",  margin:"0.2em"}}>
@@ -154,8 +162,9 @@ export default function TimeSettingsContainer(props){
     
     }
 
-    return (
-        <React.Fragment>
+    if(miniMize){
+        return(       
+         <React.Fragment>
             {enterDate()}
             <div className="tool-Bar-Container-MAX">
                 <div className="time-settings-container">
@@ -168,7 +177,7 @@ export default function TimeSettingsContainer(props){
                                 <div className="time-settings-forward" onClick={rewindClicked}>
                                     <FaBackward />
                                 </div>
-                                <div className="time-settings-Clock">
+                                <div className="time-settings-Clock" onClick={editClicked}>
                                     <div>
                                         {getYearString(time)}
                                     </div>
@@ -184,10 +193,10 @@ export default function TimeSettingsContainer(props){
                     </div> 
                     <div className="time-settings-collum">
                     <div className="time-settings-pause" onClick={pauseClicked}>
-                            ⏸︎
+                            <AiOutlinePause/>
                         </div>
                         <div className="time-settings-pause" onClick={playClicked}>
-                            ▶
+                            <BsFillPlayFill />
                         </div>
                         <div className="timeSettings-LiveButton" onClick={lifeClicked}>
                                 {getLED()}
@@ -195,14 +204,43 @@ export default function TimeSettingsContainer(props){
                                 LIVE
                             </div>                  
                         </div>
-                        <div className="time-settings-pause" onClick={editClicked}>
-                        ✏️
+                        <div className="time-settings-pause" onClick={miniMizeClicked}>
+                            <ImShrink/>
                         </div>
                     </div>
                 </div>
             </div>
         </React.Fragment>
     )
+    }else{
+        return (
+            <React.Fragment>
+                <div className="tool-Bar-Container-MAX" onClick={miniMizeClicked}>
+                    <div className="time-settings-container">
+                        <div className="time-settings-collum">
+                            <div className="time-Settings-Status-Container">
+                                <div className="time-Settings-Status">
+                                    {getStatus()}
+                                </div>
+                                <div className="time-settings-collum">
+                                    <div className="time-settings-Clock">
+                                        <div>
+                                            {getYearString(time)}
+                                        </div>
+                                        <div>
+                                            {getTimeString(time)}
+                                        </div>                
+                                    </div>
+                                </div>                   
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </React.Fragment>
+        )
+    }
+   
+
 }
 
 export function getYearString(date){

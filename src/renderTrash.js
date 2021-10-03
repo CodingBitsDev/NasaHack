@@ -37,25 +37,36 @@ export default async function renderTrash(scene){
 
     let celestrackdata = await getCelestrakData()
     let data = [...celestrackdata.debris, ...celestrackdata.satelites];
+    let loadFunction = []
     // console.log("### data", data[0])
 
     for (let index = 0; index < data.length; index++) {
         let trash = data[index]
         if (index > step * renderMax) return;
-        setTimeout( () => {
-            let newTrash = new Trash(
-                scene,
-                trash.tle1,
-                trash.tle2,
-                trash.name,
-                trash.type,
-                trash,
-            );
-            //newTrash.update(scene.globalTime);
-            trashList.push(newTrash)
-        } , 0)
-        
+        loadFunction.push(new Promise(resolve => {
+            setTimeout( () => {
+                let newTrash = new Trash(
+                    scene,
+                    trash.tle1,
+                    trash.tle2,
+                    trash.name,
+                    trash.type,
+                    trash,
+                    () => {
+                        resolve(true)
+                    }
+                );
+                newTrash.update(scene.globalTime);
+                trashList.push(newTrash)
+            } , 0)
+        }))
     }
+
+    Promise.all(loadFunction).then(
+        setTimeout(() => {
+            console.log("allLoaded")
+        },0)
+    )
 
     let currentStep = 0;
     let update = () => {

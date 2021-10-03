@@ -3,8 +3,8 @@
   z-index: 5;
   display: flex;
   flex-direction: column;
-  top: 3.5rem;
-  left: 3.5rem;
+  top: 1.5rem;
+  left: 1.5rem;
   background-color: #515150;
   padding: 1rem;
   color: #FFFFFF;
@@ -37,4 +37,8 @@
     }
   }
 
+}
+
+.legend-container:hover{
+  background-color: #979797; 
 }
