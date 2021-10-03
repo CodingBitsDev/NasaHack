@@ -9,7 +9,6 @@ export default async function renderTrash(scene){
     
     let result = await fetch("/spaceTrackDebri10k_clean.json") 
     let data = await result.json()
-    console.log(data)
 
     let renderMax = 10000
     let step = 1
