@@ -105,49 +105,53 @@ export default function(props){
     }
 
     return (
-        <div className="time-settings-container">
-            <div className="time-settings-collum">
-                <div className="time-Settings-Status-Container">
-                    <div className="time-Settings-Status">
-                        {getStatus()}
-                    </div>
-                    <div className="time-settings-collum">
-                        <div className="time-settings-forward" onClick={rewindClicked}>
-                        ⏪︎
-                        </div>
-                        <div className="time-settings-Clock">
-                            <div>
-                                {getYearString(time)}
-                            </div>
-                            <div>
-                                {getTimeString(time)}
-                            </div>                
-                        </div>
-                       <div className="time-settings-forward" onClick={forwarClicked}>
-                             ⏩︎
-                       </div>
-                    </div>                   
-                </div>
-            </div> 
-            <div className="time-settings-collum">
-            <div className="time-settings-pause" onClick={pauseClicked}>
-                    ⏸︎
-                  </div>
-                  <div className="time-settings-pause" onClick={playClicked}>
-                     ▶
-                  </div>
-                  <div className="timeSettings-LiveButton" onClick={lifeClicked}>
-                        {getLED()}
-                      <div style={{paddingLeft:5}}>
-                         LIVE
-                      </div>                  
-                  </div>
-                  <div className="time-settings-pause" onClick={editClicked}>
-                  ✏️
-                  </div>
-            </div>
+        <React.Fragment>
             {enterDate()}
-        </div>
+            <div className="tool-Bar-Container-MAX">
+                <div className="time-settings-container">
+                    <div className="time-settings-collum">
+                        <div className="time-Settings-Status-Container">
+                            <div className="time-Settings-Status">
+                                {getStatus()}
+                            </div>
+                            <div className="time-settings-collum">
+                                <div className="time-settings-forward" onClick={rewindClicked}>
+                                ⏪︎
+                                </div>
+                                <div className="time-settings-Clock">
+                                    <div>
+                                        {getYearString(time)}
+                                    </div>
+                                    <div>
+                                        {getTimeString(time)}
+                                    </div>                
+                                </div>
+                            <div className="time-settings-forward" onClick={forwarClicked}>
+                                    ⏩︎
+                            </div>
+                            </div>                   
+                        </div>
+                    </div> 
+                    <div className="time-settings-collum">
+                    <div className="time-settings-pause" onClick={pauseClicked}>
+                            ⏸︎
+                        </div>
+                        <div className="time-settings-pause" onClick={playClicked}>
+                            ▶
+                        </div>
+                        <div className="timeSettings-LiveButton" onClick={lifeClicked}>
+                                {getLED()}
+                            <div style={{paddingLeft:5}}>
+                                LIVE
+                            </div>                  
+                        </div>
+                        <div className="time-settings-pause" onClick={editClicked}>
+                        ✏️
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </React.Fragment>
     )
 }
 

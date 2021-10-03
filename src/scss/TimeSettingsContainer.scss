@@ -150,8 +150,6 @@
 
 .time-Settings-Enter-Date-Popup{
   position: fixed;
-  top: 36%;
-  left: 36%;
   z-index: 4;
   border-width: 5px;
   border-color: #1b1b1b;
@@ -159,6 +157,9 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .time-Settings-Enter-Date-Popup-CloseButton{
   text-align: center;

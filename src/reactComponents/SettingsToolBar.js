@@ -4,8 +4,8 @@ import TimeSettingsContainer from "./TimeSettingsContainer";
 export default function(props){
 
     return (
-        <div className="tool-Bar-Container-MAX">
+        <React.Fragment>
            <TimeSettingsContainer scene={props.scene}/>
-        </div>
+        </React.Fragment>
     )
 }
