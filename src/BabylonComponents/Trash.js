@@ -88,26 +88,22 @@ export default class Trash{
 		this.orbit.update(time)
 		this.trashSphere.position = this.orbit.currentPosition;
 
-		/*
-		const xSlide = new BABYLON.Animation("floatyboaty", "position", 1, BABYLON.Animation.ANIMATIONTYPE_VECTOR2, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
+		
+		const xSlide = new BABYLON.Animation("floatyboaty", "position", 1, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
 	
-		const keyFrames = []; 
-	
-		keyFrames.push({
+		const keyFrames = [{
 			frame: 0,
-			value: this.orbit.currentPosition
-		});
-	
-		keyFrames.push({
+			value: this.orbit.currentPosition.clone()
+		},{
 			frame: 1,
-			value: this.orbit.currentPosition + this.orbit.currentMovement
-		});
+			value: this.orbit.currentPosition.add(this.orbit.currentMovement.scale(this.scene.playbackSpeed))
+		}];
 	
 		xSlide.setKeys(keyFrames);
 	
-		this.trashSphere.animations.push(xSlide);
-	
-		this.scene.beginAnimation(this.trashSphere, 0, 2 , true);*/
+		this.trashSphere.animations = [xSlide];
+
+		this.scene.beginAnimation(this.trashSphere, 0, 2 , true);
 
 		if (this.selectedSphere) this.selectedSphere.position = this.orbit.currentPosition;
 	}
