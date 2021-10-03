@@ -51,6 +51,7 @@ export default async function renderTrash(scene){
                 trash.type,
                 trash,
             );
+            //newTrash.update(scene.globalTime);
             trashList.push(newTrash)
         } , 0)
         
@@ -63,7 +64,7 @@ export default async function renderTrash(scene){
             let subList = trashList.slice(currentStep, currentStep + interval)
             currentStep = currentStep + interval;
             subList.forEach((trash) => {
-                if (trash) trash.update(new Date())
+                if (trash) trash.update(scene.globalTime)
             })
         } else {
             currentStep = 0;
