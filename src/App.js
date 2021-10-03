@@ -5,6 +5,7 @@ import TimeSettingsContainer from './reactComponents/TimeSettingsContainer';
 import SettingsToolBar from './reactComponents/SettingsToolBar';
 import InfoTable from './reactComponents/InfoTable';
 import Legend from './reactComponents/Legend';
+import ColisionWarnings from './reactComponents/ColisionWarnings'
 
 import("@babylonjs/core/Debug/debugLayer")
 import('@babylonjs/inspector')
@@ -19,6 +20,7 @@ function App() {
       {scene && <SettingsToolBar scene={scene} />}
       {scene && <InfoTable scene={scene} />}
       <Legend />
+      {scene && <ColisionWarnings scene={scene} />}
     </div>
   );
 }
