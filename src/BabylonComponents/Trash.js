@@ -12,9 +12,10 @@ export default class Trash{
 		this.type = type;
 
 		this.data = {
-			name: data["OBJECT_NAME"],
+			name: data.name,
 			restData: data,
 		}
+		console.log(this.data)
 
 		if(this.type == "satelite"){
 			this.trashSphere = scene.templateSphereSatelite.createInstance("instance" + uid);
