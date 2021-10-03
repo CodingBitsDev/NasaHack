@@ -1,6 +1,6 @@
 import React, {useState,useEffect,useRef} from "react";
 
-export default function(props){
+export default function TimeSettingsContainer(props){
     let [time, setTime] = useState(props.scene.globalTime);
     let [isLiveMode, setIsLiveMode] = useState(true);
     let [speed, setSpeed] = useState(1);
@@ -145,7 +145,7 @@ export default function(props){
                             </div>                
                         </div>
                        <div className="time-settings-forward" onClick={forwarClicked}>
-                             ⏩︎
+                            &#x23e9;&#xfe0e;
                        </div>
                     </div>                   
                 </div>
