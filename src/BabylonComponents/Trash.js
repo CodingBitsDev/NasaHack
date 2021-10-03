@@ -3,22 +3,29 @@ import * as GUI from '@babylonjs/gui';
 import Orbit from './Orbit';
 
 export default class Trash{
-	constructor(scene, tle1, tle2, uid, data){
+	constructor(scene, tle1, tle2, uid, type, data){
 		this.scene = scene;
 
 		this.tle1 = tle1;
 		this.tle2 = tle2;
 		this.uid = uid;
+		this.type = type;
 
 		this.data = {
 			name: data["OBJECT_NAME"],
 			restData: data,
 		}
 
-		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(1,1,1,1),scene)
+		if(this.type == "satelite"){
+			this.trashSphere = scene.templateSphereSatelite.createInstance("instance" + uid);
+		} else {
+			this.trashSphere = scene.templateSphereDebris.createInstance("instance" + uid);
+		}
+		let color = this.trashSphere.material.emissiveColor
+		console.log(color)
+		this.orbit = new Orbit(this.uid, this.tle1, this.tle2, new BABYLON.Color4(color.x,color.y,color.z,1),scene)
 		this.orbit.update();
-		this.trashSphere = scene.templateSphere.createInstance("instance" + uid);
-		this.trashSphere.material.emissiveColor = new BABYLON.Vector3(0.8,0.8,0.8)
+
 		this.trashSphere.position = this.orbit.currentPosition;
 		this.trashSphere.active = false;
 
